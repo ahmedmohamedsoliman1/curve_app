@@ -8,7 +8,7 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     Timer(const Duration(seconds: 3), () {
-      Get.offNamed(Routes.LOGIN);
+      Get.offNamed(Routes.PAGE_VIEW);
     });
     update();
   }
