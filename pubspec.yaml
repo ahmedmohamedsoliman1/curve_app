@@ -2,23 +2,31 @@ name: curve_app
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment:
-  sdk: '>=3.1.0 <4.0.0'
+environment: 
+  sdk: '>=3.0.5 <4.0.0'
 
-dependencies:
+dependencies: 
   percent_indicator: ^4.0.1
   cupertino_icons: ^1.0.2
-  get: 4.6.6
-  flutter:
+  get: any
+  smooth_page_indicator: 1.1.0
+  flutter: 
     sdk: flutter
 
-dev_dependencies:
+dev_dependencies: 
   flutter_lints: ^2.0.0
-  flutter_test:
+  flutter_test: 
     sdk: flutter
 
-flutter:
-  assets:
+flutter: 
+  assets: 
     - assets/images/
+  fonts: 
+    - family: Tajawal
+      fonts: 
+        - asset: assets/fonts/Tajawal-Bold.ttf
+    - family: TajawalM
+      fonts: 
+        - asset: assets/fonts/Tajawal-Medium.ttf
   uses-material-design: true
 
