@@ -10,15 +10,19 @@ class SplashView extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.onInit();
-    return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      body: Center(
-        child: Image.asset(
-          AppImages.splashLogo,
-          fit: BoxFit.fill,
-        ),
-      ),
+    return GetBuilder(
+      init: SplashController(),
+      builder: (controller) {
+        return Scaffold(
+          backgroundColor: AppColors.whiteColor,
+          body: Center(
+            child: Image.asset(
+              AppImages.splashLogo,
+              fit: BoxFit.fill,
+            ),
+          ),
+        );
+      },
     );
   }
 }
