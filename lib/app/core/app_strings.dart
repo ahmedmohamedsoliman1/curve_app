@@ -16,4 +16,5 @@ class AppStrings {
   static const String forgetPassword = "نسيت كلمة المرور ؟";
   static const String doNotHaveAccount = "ليس لديك حساب ؟";
   static const String newAccount = "حساب جديد";
+  static const String noInternet = "لا يوجد اتصال بالانترنت" ;
 }
