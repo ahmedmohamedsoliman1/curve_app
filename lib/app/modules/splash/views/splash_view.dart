@@ -1,5 +1,4 @@
 import 'package:curve_app/app/core/app_colors.dart';
-import 'package:curve_app/app/core/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +16,7 @@ class SplashView extends GetView<SplashController> {
           backgroundColor: AppColors.whiteColor,
           body: Center(
             child: Image.asset(
-              AppImages.splashLogo,
+              'assets/images/splash_logo.png',
               fit: BoxFit.fill,
             ),
           ),
