@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
 
-  final count = 0.obs;
+  var formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void onInit() {
@@ -20,5 +22,4 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }

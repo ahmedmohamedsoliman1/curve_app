@@ -8,6 +8,7 @@ abstract class Routes {
   static const SPLASH = _Paths.SPLASH;
   static const LOGIN = _Paths.LOGIN;
   static const PAGE_VIEW = _Paths.PAGE_VIEW;
+  static const NETWORK = _Paths.NETWORK;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const LOGIN = '/login';
   static const PAGE_VIEW = '/page-view';
+  static const NETWORK = '/network';
 }
