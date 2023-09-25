@@ -1,4 +1,3 @@
-import 'package:curve_app/app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -6,7 +5,7 @@ class CustomButton extends StatelessWidget {
 
   String text;
 
-  Color color;
+  Color textColor;
 
   FontWeight fontWeight;
 
@@ -17,17 +16,24 @@ class CustomButton extends StatelessWidget {
   double radius;
 
   double padding;
+  Color backgroundColor;
+  Color? iconColor;
+  IconData? icon;
 
-  CustomButton(
-      {super.key,
-      required this.text,
-      required this.onPressed,
-      required this.color,
-      required this.fontWeight,
-      required this.fontSize,
-      required this.isShown,
-      required this.radius,
-      required this.padding});
+  CustomButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    required this.textColor,
+    required this.fontWeight,
+    required this.fontSize,
+    required this.isShown,
+    required this.radius,
+    required this.padding,
+    required this.backgroundColor,
+    this.iconColor,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,28 +42,30 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: backgroundColor,
       ),
       child: Row(
+        textDirection: TextDirection.ltr,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: padding),
+            padding: EdgeInsets.all(padding),
             child: Text(
               text,
               style: TextStyle(
-                  color: color,
-                  fontWeight: fontWeight,
-                  fontSize: fontSize,
-                  fontFamily: "Tajawal"),
+                color: textColor,
+                fontWeight: fontWeight,
+                fontSize: fontSize,
+                fontFamily: "Tajawal",
+              ),
             ),
           ),
           isShown == true
-              ? const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 20,
-                  color: AppColors.whiteColor,
+              ? Icon(
+                  icon,
+                  size: 18,
+                  color: iconColor,
                 )
-              : Container(),
+              : const SizedBox(),
         ],
       ),
     );

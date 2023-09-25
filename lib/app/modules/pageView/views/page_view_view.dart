@@ -13,6 +13,7 @@ import '../controllers/page_view_controller.dart';
 
 class PageViewView extends GetView<PageViewController> {
   const PageViewView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PageViewController>(
@@ -35,10 +36,13 @@ class PageViewView extends GetView<PageViewController> {
                       radius: 10,
                       isShown: true,
                       text: "تخطى",
+                      backgroundColor: AppColors.primaryColor,
+                      iconColor: AppColors.whiteColor,
+                      icon: Icons.arrow_forward_ios_outlined,
                       onPressed: () {
-                        Get.off(() => const LoginView());
+                        Get.off(() => LoginView());
                       },
-                      color: AppColors.whiteColor,
+                      textColor: AppColors.whiteColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
@@ -89,38 +93,45 @@ class PageViewView extends GetView<PageViewController> {
                   height: heightMediaQuery(height: 0.1, context: context),
                 ),
                 Row(
+                  textDirection: TextDirection.ltr,
                   children: [
                     Obx(
-                          () => controller.pageIndex != 0
+                      () => controller.pageIndex != 0
                           ? SizedBox(
                               width: widthMediaQuery(
                                   width: 0.32, context: context),
                               child: GestureDetector(
-                                  onTap: () {
-                                    controller.decreasePercent();
-                                    controller.iconTitle.value = "التالى";
-                                    controller.pageController.animateToPage(
-                                        controller.pageIndex - 1,
-                                        duration: const Duration(seconds: 1),
-                                        curve: Curves.linear);
-                                  },
-                                  child: const Text("السابق",
-                                      style: TextStyle(
-                                          color: AppColors.blackColor,
-                                          fontSize: 14,
-                                          fontFamily: AppStrings.fontFamilyBold,
-                                          fontWeight: FontWeight.bold))),
-                      )
+                                onTap: () {
+                                  controller.decreasePercent();
+                                  controller.iconTitle.value = "التالى";
+                                  controller.pageController.animateToPage(
+                                      controller.pageIndex - 1,
+                                      duration: const Duration(seconds: 1),
+                                      curve: Curves.linear);
+                                },
+                                child: const Text(
+                                  //textDirection: TextDirection.ltr,
+                                  "السابق",
+                                  style: TextStyle(
+                                    color: AppColors.blackColor,
+                                    fontSize: 14,
+                                    fontFamily: AppStrings.fontFamilyBold,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            )
                           : SizedBox(
-                        width: widthMediaQuery(
-                            width: 0.32, context: context),
-                        child: Text(controller.nextButton.value),
-                      ),
+                              width: widthMediaQuery(
+                                  width: 0.32, context: context),
+                              child: Text(controller.nextButton.value),
+                            ),
                     ),
                     SmoothPageIndicator(
                         controller: controller.pageController,
                         count: 3,
                         axisDirection: Axis.horizontal,
+                        textDirection: TextDirection.ltr,
                         effect: ScaleEffect(
                             scale: 1.5,
                             dotHeight: 10,
@@ -150,17 +161,17 @@ class PageViewView extends GetView<PageViewController> {
                         lineWidth: 5.0,
                         percent: controller.percent,
                         center: Obx(() => CircleAvatar(
-                          radius: 30,
-                          backgroundColor: AppColors.primaryColor,
-                          child: Text(
-                            controller.iconTitle.value,
-                            style: const TextStyle(
+                              radius: 30,
+                              backgroundColor: AppColors.primaryColor,
+                              child: Text(
+                                controller.iconTitle.value,
+                                style: const TextStyle(
                                     color: AppColors.whiteColor,
                                     fontSize: 14,
                                     fontFamily: AppStrings.fontFamilyBold,
                                     fontWeight: FontWeight.bold),
-                          ),
-                        )),
+                              ),
+                            )),
                         progressColor: AppColors.primaryColor,
                       ),
                     ),
