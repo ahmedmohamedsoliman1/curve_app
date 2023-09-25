@@ -4,7 +4,6 @@ import 'package:curve_app/app/modules/login/views/login_view.dart';
 import 'package:curve_app/app/modules/pageView/views/page_view_widget.dart';
 import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -20,6 +19,7 @@ class PageViewView extends GetView<PageViewController> {
       init: PageViewController(),
       builder: (controller) {
         return Scaffold(
+          backgroundColor: AppColors.whiteColor,
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
@@ -31,16 +31,17 @@ class PageViewView extends GetView<PageViewController> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                        padding: 5,
-                        radius: 10,
-                        isShown: true,
-                        text: "تخطى",
-                        onPressed: () {
-                          Get.off(() => const LoginView());
-                        },
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                      padding: 5,
+                      radius: 10,
+                      isShown: true,
+                      text: "تخطى",
+                      onPressed: () {
+                        Get.off(() => const LoginView());
+                      },
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -55,9 +56,7 @@ class PageViewView extends GetView<PageViewController> {
                     },
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      PageViewWidget(
-                        image: "assets/images/first.png",
-                      ),
+                      PageViewWidget(image: "assets/images/first.png"),
                       PageViewWidget(image: "assets/images/second.png"),
                       PageViewWidget(image: "assets/images/third.png"),
                     ],
@@ -66,7 +65,7 @@ class PageViewView extends GetView<PageViewController> {
                 SizedBox(
                   height: heightMediaQuery(height: 0.02, context: context),
                 ),
-                Text(
+                const Text(
                   "شاشات ترحيبيه",
                   style: TextStyle(
                       color: AppColors.blackColor,
@@ -77,7 +76,7 @@ class PageViewView extends GetView<PageViewController> {
                 SizedBox(
                   height: heightMediaQuery(height: 0.02, context: context),
                 ),
-                Text(
+                const Text(
                   AppStrings.welcomeMessage,
                   style: TextStyle(
                     color: AppColors.blackColor,
@@ -92,33 +91,31 @@ class PageViewView extends GetView<PageViewController> {
                 Row(
                   children: [
                     Obx(
-                      () => controller.pageIndex != 0
+                          () => controller.pageIndex != 0
                           ? SizedBox(
                               width: widthMediaQuery(
                                   width: 0.32, context: context),
-                              child: InkWell(
+                              child: GestureDetector(
                                   onTap: () {
                                     controller.decreasePercent();
-                                    controller.iconTitle.value = "التالى" ;
+                                    controller.iconTitle.value = "التالى";
                                     controller.pageController.animateToPage(
-                                        controller.pageIndex-1,
-                                        duration: const Duration(
-                                          seconds: 1
-                                        ),
+                                        controller.pageIndex - 1,
+                                        duration: const Duration(seconds: 1),
                                         curve: Curves.linear);
                                   },
-                                  child: Text("السابق",
+                                  child: const Text("السابق",
                                       style: TextStyle(
                                           color: AppColors.blackColor,
                                           fontSize: 14,
                                           fontFamily: AppStrings.fontFamilyBold,
                                           fontWeight: FontWeight.bold))),
-                            )
+                      )
                           : SizedBox(
-                              width: widthMediaQuery(
-                                  width: 0.32, context: context),
-                              child: Text(controller.nextButton.value),
-                            ),
+                        width: widthMediaQuery(
+                            width: 0.32, context: context),
+                        child: Text(controller.nextButton.value),
+                      ),
                     ),
                     SmoothPageIndicator(
                         controller: controller.pageController,
@@ -135,7 +132,7 @@ class PageViewView extends GetView<PageViewController> {
                     SizedBox(
                       width: widthMediaQuery(width: 0.2, context: context),
                     ),
-                    InkWell(
+                    GestureDetector(
                       onTap: () {
                         controller.increasePercent();
                         controller.pageController.animateToPage(
@@ -153,17 +150,17 @@ class PageViewView extends GetView<PageViewController> {
                         lineWidth: 5.0,
                         percent: controller.percent,
                         center: Obx(() => CircleAvatar(
-                              radius: 30,
-                              backgroundColor: AppColors.primaryColor,
-                              child: Text(
-                                controller.iconTitle.value,
-                                style: TextStyle(
+                          radius: 30,
+                          backgroundColor: AppColors.primaryColor,
+                          child: Text(
+                            controller.iconTitle.value,
+                            style: const TextStyle(
                                     color: AppColors.whiteColor,
                                     fontSize: 14,
                                     fontFamily: AppStrings.fontFamilyBold,
                                     fontWeight: FontWeight.bold),
-                              ),
-                            )),
+                          ),
+                        )),
                         progressColor: AppColors.primaryColor,
                       ),
                     ),
