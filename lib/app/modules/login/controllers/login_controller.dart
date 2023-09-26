@@ -1,12 +1,34 @@
-import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-
-  var formKey = GlobalKey<FormState>();
+  var formKeyForLoginView = GlobalKey<FormState>();
+  var formKeyForForgetPasswordView = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController forgetPasswordPhoneController = TextEditingController();
+
+  final interval = const Duration(seconds: 1);
+
+  final int timerMaxSeconds = 60;
+
+  int currentSeconds = 0;
+
+  String get timerText =>
+      '${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}:'
+      ' ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
+
+  startTimeout([int? milliseconds]) {
+    var duration = interval;
+    Timer.periodic(duration, (timer) {
+      print(timer.tick);
+      currentSeconds = timer.tick;
+      if (timer.tick >= timerMaxSeconds) timer.cancel();
+      update();
+    });
+  }
 
   @override
   void onInit() {
@@ -22,5 +44,4 @@ class LoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
 }

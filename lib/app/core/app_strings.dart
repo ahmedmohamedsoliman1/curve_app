@@ -25,4 +25,7 @@ class AppStrings {
   static const String phoneNumber = "رقم الهاتف";
   static const String next = "التالي";
   static const String rememberPassword = "تذكرت كلمة المرور";
+  static const String backCodePassword = "كود استرجاع كلمة المرور";
+  static const String entreCode = "قم بإدخال الكود المرسل لك علي رقم هاتفك";
+  static const String resent = "إعادة ارسال";
 }
