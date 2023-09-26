@@ -131,7 +131,7 @@ class PageViewView extends GetView<PageViewController> {
                                                               1,
                                                           duration:
                                                               const Duration(
-                                                                  seconds: 1),
+                                                                  milliseconds: 500),
                                                           curve: Curves.linear);
                                                 },
                                                 child: const Text(
@@ -175,17 +175,17 @@ class PageViewView extends GetView<PageViewController> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        pageViewController.increasePercent();
-                                        pageViewController.pageController
-                                            .animateToPage(
-                                                pageViewController.pageIndex.value + 1,
-                                                duration:
-                                                    const Duration(seconds: 1),
-                                                curve: Curves.linear);
-                                        pageViewController.changeTitle();
-                                        if (pageViewController.pageIndex == 2) {
-                                          Get.off(() => LoginView());
-                                        }
+                                          pageViewController.pageController
+                                              .animateToPage(
+                                              pageViewController.pageIndex.value + 1,
+                                              duration:
+                                              const Duration(milliseconds: 500),
+                                              curve: Curves.linear);
+                                          pageViewController.increasePercent();
+                                          pageViewController.changeTitle();
+                                          if (pageViewController.pageIndex.value == 2) {
+                                            Get.off(() => LoginView());
+                                          }
                                       },
                                       child: CircularPercentIndicator(
                                         backgroundColor: Colors.white,

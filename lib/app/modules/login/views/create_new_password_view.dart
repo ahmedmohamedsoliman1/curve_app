@@ -90,7 +90,7 @@ class CreateNewPasswordView extends GetView {
                       controller: controller.passwordController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please entre password';
+                          return 'Please enter password';
                         }
                         return null;
                       },
@@ -107,7 +107,7 @@ class CreateNewPasswordView extends GetView {
                       controller: controller.passwordController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please entre password';
+                          return 'Please enter password';
                         }
                         return null;
                       },

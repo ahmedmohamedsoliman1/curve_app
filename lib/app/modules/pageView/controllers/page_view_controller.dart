@@ -27,7 +27,7 @@ class PageViewController extends GetxController {
   }
 
   void changeTitle (){
-    if (pageIndex == 1){
+    if (pageIndex.value == 1){
       iconTitle.value = "أبدأ" ;
       print("do");
     }
