@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:curve_app/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
+import '../../network/controllers/network_controller.dart';
+
 class SplashController extends GetxController {
   @override
   void onInit() {
@@ -23,3 +25,4 @@ class SplashController extends GetxController {
     super.onClose();
   }
 }
+

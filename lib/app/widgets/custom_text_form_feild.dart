@@ -29,7 +29,7 @@ Widget customTextFormField({
             color: color,
             fontWeight: FontWeight.w400,
             fontSize: 13,
-            fontFamily: AppStrings.fontFamily,
+            fontFamily: AppStrings.fontFamilyBold,
           ),
           border: InputBorder.none,
           fillColor: AppColors.whiteColor,
