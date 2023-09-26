@@ -1,3 +1,4 @@
+import 'package:curve_app/app/core/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -41,7 +42,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
         backgroundColor: backgroundColor,
       ),
       child: Row(
@@ -55,16 +56,16 @@ class CustomButton extends StatelessWidget {
                 color: textColor,
                 fontWeight: fontWeight,
                 fontSize: fontSize,
-                fontFamily: "Tajawal",
+                fontFamily: AppStrings.fontFamilyBold,
               ),
             ),
           ),
           isShown == true
               ? Icon(
-                  icon,
-                  size: 18,
-                  color: iconColor,
-                )
+            icon,
+            size: 18,
+            color: iconColor,
+          )
               : const SizedBox(),
         ],
       ),

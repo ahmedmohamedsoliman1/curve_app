@@ -11,6 +11,7 @@ Widget customTextFormField({
   required Validator validator,
   required Color color,
   required Color iconColor,
+  TextInputType? keyboardType,
   bool obscure = false,
 }) {
   return Material(
@@ -23,13 +24,14 @@ Widget customTextFormField({
         controller: controller,
         validator: validator,
         obscureText: obscure,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(
             color: color,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             fontSize: 13,
-            fontFamily: AppStrings.fontFamilyBold,
+            fontFamily: AppStrings.fontFamilyMedium,
           ),
           border: InputBorder.none,
           fillColor: AppColors.whiteColor,

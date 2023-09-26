@@ -1,17 +1,15 @@
 import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
+import 'package:curve_app/app/core/app_strings.dart';
 import 'package:curve_app/app/modules/login/controllers/login_controller.dart';
-import 'package:curve_app/app/modules/login/views/password_recovery_code_view.dart';
 import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:curve_app/app/widgets/custom_elevated_button.dart';
 import 'package:curve_app/app/widgets/custom_text_form_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/app_strings.dart';
-
-class ForgetPasswordView extends GetView {
-  ForgetPasswordView({Key? key}) : super(key: key);
+class CreateNewPasswordView extends GetView {
+  const CreateNewPasswordView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,6 @@ class ForgetPasswordView extends GetView {
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Form(
-              key: controller.formKeyForForgetPasswordView,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
@@ -60,7 +57,7 @@ class ForgetPasswordView extends GetView {
                       height: 25,
                     ),
                     const Text(
-                      AppStrings.forgetPass,
+                      AppStrings.createNewPassword,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.blackColor,
@@ -73,7 +70,7 @@ class ForgetPasswordView extends GetView {
                       height: 20,
                     ),
                     const Text(
-                      AppStrings.entrePhoneNumber,
+                      AppStrings.pleaseEntreNewPassword,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.blackColor,
@@ -83,34 +80,45 @@ class ForgetPasswordView extends GetView {
                       ),
                     ),
                     const SizedBox(
-                      height: 32,
+                      height: 50,
                     ),
                     customTextFormField(
-                      hint: AppStrings.phoneNumber,
-                      keyboardType: TextInputType.number,
-                      icon: Icons.phone,
-                      controller: controller.forgetPasswordPhoneController,
+                      hint: AppStrings.password,
+                      obscure: true,
+                      icon: Icons.lock,
+                      iconColor: AppColors.primaryColor,
+                      controller: controller.passwordController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please entre phone number';
+                          return 'Please entre password';
                         }
                         return null;
                       },
                       color: AppColors.blackColor,
-                      iconColor: AppColors.primaryColor,
                     ),
                     const SizedBox(
-                      height: 60,
+                      height: 16,
+                    ),
+                    customTextFormField(
+                      hint: AppStrings.confirmPassword,
+                      obscure: true,
+                      icon: Icons.lock,
+                      iconColor: AppColors.primaryColor,
+                      controller: controller.passwordController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please entre password';
+                        }
+                        return null;
+                      },
+                      color: AppColors.blackColor,
+                    ),
+                    const SizedBox(
+                      height: 50,
                     ),
                     CustomElevatedButton(
-                      onPressed: () {
-                        if (controller
-                            .formKeyForForgetPasswordView.currentState!
-                            .validate()) {
-                          Get.to(const PasswordRecoveryCodeView());
-                        }
-                      },
-                      btnText: AppStrings.next,
+                      onPressed: () {},
+                      btnText: AppStrings.confirm,
                       btnBackgroundColor: AppColors.primaryColor,
                       btnRadius: 12,
                       textColor: AppColors.whiteColor,
@@ -118,32 +126,6 @@ class ForgetPasswordView extends GetView {
                       textFontWeight: FontWeight.w500,
                       btnPaddingHorizontal: .2,
                       btnPaddingVertical: .02,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border:
-                            Border.all(color: AppColors.primaryColor, width: 2),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: const Text(
-                          AppStrings.rememberPassword,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: AppColors.blackColor,
-                            fontFamily: AppStrings.fontFamilyRegular,
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
