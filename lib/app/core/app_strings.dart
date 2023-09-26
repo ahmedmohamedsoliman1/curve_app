@@ -1,7 +1,9 @@
 class AppStrings {
-  static const String fontFamily = "Tajawal";
   static const String fontFamilyBold = "Tajawal";
   static const String fontFamilyMedium = "TajawalM";
+  static const String fontFamilyRegular = "TajawalR";
+  static const String fontFamilyLight = "TajawalL";
+  static const String fontFamily = "Tajawal";
   static const String welcomeMessage =
       "لوريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه او نماذج مواقع انترنت";
   static const String exit = "تخطى";
@@ -15,4 +17,12 @@ class AppStrings {
   static const String forgetPassword = "نسيت كلمة المرور ؟";
   static const String doNotHaveAccount = "ليس لديك حساب ؟";
   static const String newAccount = "حساب جديد";
+  static const String noInternet = "لا يوجد اتصال بالانترنت";
+
+  static const String forgetPass = "نسيت كلمة المرور";
+  static const String entrePhoneNumber =
+      "من فضلك أدخل رقم الهاتف لنستطيع ارسال لك كود\n استعادة كلمة المرور";
+  static const String phoneNumber = "رقم الهاتف";
+  static const String next = "التالي";
+  static const String rememberPassword = "تذكرت كلمة المرور";
 }
