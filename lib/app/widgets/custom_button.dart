@@ -38,36 +38,40 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-        backgroundColor: backgroundColor,
-      ),
-      child: Row(
-        textDirection: TextDirection.ltr,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(padding),
-            child: Text(
-              text,
-              style: TextStyle(
-                color: textColor,
-                fontWeight: fontWeight,
-                fontSize: fontSize,
-                fontFamily: AppStrings.fontFamilyBold,
+    return SizedBox(
+      width: 50,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+          backgroundColor: backgroundColor,
+        ),
+        child: Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(padding),
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: fontWeight,
+                  fontSize: fontSize,
+                  fontFamily: AppStrings.fontFamilyBold,
+                ),
               ),
             ),
-          ),
-          isShown == true
-              ? Icon(
-            icon,
-            size: 18,
-            color: iconColor,
-          )
-              : const SizedBox(),
-        ],
+            isShown == true
+                ? Icon(
+              icon,
+              size: 16,
+              color: iconColor,
+            )
+                : const SizedBox(),
+          ],
+        ),
       ),
     );
   }

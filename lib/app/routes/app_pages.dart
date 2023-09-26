@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/choose_city/bindings/choose_city_binding.dart';
+import '../modules/choose_city/views/choose_city_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -8,6 +10,8 @@ import '../modules/network/bindings/network_binding.dart';
 import '../modules/network/views/network_view.dart';
 import '../modules/pageView/bindings/page_view_binding.dart';
 import '../modules/pageView/views/page_view_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -43,6 +47,16 @@ class AppPages {
       name: _Paths.NETWORK,
       page: () => const NetworkView(),
       binding: NetworkBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHOOSE_CITY,
+      page: () => const ChooseCityView(),
+      binding: ChooseCityBinding(),
     ),
   ];
 }

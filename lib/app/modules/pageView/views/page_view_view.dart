@@ -35,7 +35,7 @@ class PageViewView extends GetView<PageViewController> {
                               children: [
                                 SizedBox(
                                   height: heightMediaQuery(
-                                      height: 0.08, context: context),
+                                      height: 0.05, context: context),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -59,11 +59,11 @@ class PageViewView extends GetView<PageViewController> {
                                 ),
                                 SizedBox(
                                   height: heightMediaQuery(
-                                      height: 0.1, context: context),
+                                      height: 0.05, context: context),
                                 ),
                                 SizedBox(
                                   height: heightMediaQuery(
-                                      height: 0.3, context: context),
+                                      height: 0.5, context: context),
                                   child: PageView(
                                     controller: pageViewController.pageController,
                                     onPageChanged: (index) {
@@ -73,10 +73,16 @@ class PageViewView extends GetView<PageViewController> {
                                     physics: const NeverScrollableScrollPhysics(),
                                     children: [
                                       PageViewWidget(
+                                        title: "شاشات ترحيبيه",
+                                          subTitle: AppStrings.welcomeMessage,
                                           image: "assets/images/first.png"),
                                       PageViewWidget(
+                                          title: "شاشات ترحيبيه",
+                                          subTitle: AppStrings.welcomeMessage,
                                           image: "assets/images/second.png"),
                                       PageViewWidget(
+                                          title: "شاشات ترحيبيه",
+                                          subTitle: AppStrings.welcomeMessage,
                                           image: "assets/images/third.png"),
                                     ],
                                   ),
@@ -85,27 +91,7 @@ class PageViewView extends GetView<PageViewController> {
                                   height: heightMediaQuery(
                                       height: 0.02, context: context),
                                 ),
-                                const Text(
-                                  "شاشات ترحيبيه",
-                                  style: TextStyle(
-                                      color: AppColors.blackColor,
-                                      fontSize: 25,
-                                      fontFamily: AppStrings.fontFamilyBold,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: heightMediaQuery(
-                                      height: 0.02, context: context),
-                                ),
-                                const Text(
-                                  AppStrings.welcomeMessage,
-                                  style: TextStyle(
-                                    color: AppColors.blackColor,
-                                    fontSize: 16,
-                                    fontFamily: AppStrings.fontFamilyMedium,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
+
                                 SizedBox(
                                   height: heightMediaQuery(
                                       height: 0.1, context: context),

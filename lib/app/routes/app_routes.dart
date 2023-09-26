@@ -9,6 +9,8 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const PAGE_VIEW = _Paths.PAGE_VIEW;
   static const NETWORK = _Paths.NETWORK;
+  static const REGISTER = _Paths.REGISTER;
+  static const CHOOSE_CITY = _Paths.CHOOSE_CITY;
 }
 
 abstract class _Paths {
@@ -19,4 +21,6 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const PAGE_VIEW = '/page-view';
   static const NETWORK = '/network';
+  static const REGISTER = '/register';
+  static const CHOOSE_CITY = '/choose-city';
 }
