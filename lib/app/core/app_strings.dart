@@ -33,4 +33,10 @@ class AppStrings {
       "من فضلك قم بإدخال كلمة مرور جديدة";
   static const String confirmPassword = "تأكيد كلمة المرور";
   static const String confirm = "تأكيد";
+  static const String createnewAccount = "إنشاء حساب جديد" ;
+  static const String phoneNum = "رقم الجوال" ;
+  static const String email = "البريد الاليكترونى" ;
+  static const String name = "الاسم" ;
+  static const String confirmPass = "تأكيد كلمه المرور" ;
+  static const String agreeSH = "الموافقه على الشروط والاحكام" ;
 }
