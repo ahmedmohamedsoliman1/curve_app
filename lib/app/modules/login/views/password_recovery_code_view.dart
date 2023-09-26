@@ -2,6 +2,7 @@ import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
 import 'package:curve_app/app/core/app_strings.dart';
 import 'package:curve_app/app/modules/login/controllers/login_controller.dart';
+import 'package:curve_app/app/modules/login/views/create_new_password_view.dart';
 import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:curve_app/app/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -234,7 +235,9 @@ class PasswordRecoveryCodeView extends GetView {
                       height: 60,
                     ),
                     CustomElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(const CreateNewPasswordView());
+                      },
                       btnText: AppStrings.next,
                       btnBackgroundColor: AppColors.primaryColor,
                       btnRadius: 12,
