@@ -5,6 +5,7 @@ import 'package:curve_app/app/modules/network/controllers/network_controller.dar
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../network/views/no_connection_widget.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
@@ -30,59 +31,7 @@ class SplashView extends GetView<SplashController> {
                     ),
                   ),
                 ),
-              ) : Stack(
-                alignment: Alignment.center,
-                children: [
-                  SafeArea(
-                    child: Scaffold(
-                      backgroundColor: AppColors.whiteColor,
-                      body: Center(
-                        child: Image.asset(
-                          'assets/images/splash_logo.png',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    height: heightMediaQuery(height: 0.7, context: context),
-                    child:  AlertDialog(
-                      clipBehavior: Clip.antiAlias,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.horizontal(left: Radius.circular(10) ,
-                        right: Radius.circular(20)),
-                        side: BorderSide(color: AppColors.primaryColor ,
-                        width: 1)
-                      ),
-                      elevation: 10,
-                      content: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Image(image: AssetImage("assets/images/no_wifi.png") ,
-                          width: 200, height: 200,) ,
-                          SizedBox(
-                            height: heightMediaQuery(height: 0.05, context: context),
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(AppStrings.noInternet , style: TextStyle(
-                                  fontSize: 18 , color: Colors.black ,
-                                fontFamily: AppStrings.fontFamilyBold
-                              ),),
-                              SizedBox(width: 10,),
-                              Icon(Icons.wifi_lock , color: AppColors.primaryColor , size: 25,)
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              );
+              ) : NoConnevtionWidget();
             });
       },
     );
