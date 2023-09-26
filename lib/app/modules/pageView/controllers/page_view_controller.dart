@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class PageViewController extends GetxController {
 
-  int pageIndex = 0 ;
+  RxInt pageIndex = 0.obs ;
   PageController pageController = PageController();
   double percent = 0.33333333 ;
   RxString iconTitle = "التالى".obs ;
@@ -11,12 +11,12 @@ class PageViewController extends GetxController {
 
 
   void equalPageIndex ({required int index}){
-    pageIndex = index ;
+    pageIndex.value = index ;
     update();
   }
 
   void increasePercent (){
-    if(pageIndex != 2){
+    if(pageIndex.value != 2){
       percent += 0.33333 ;
     }
     update();
