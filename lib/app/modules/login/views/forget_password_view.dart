@@ -86,13 +86,13 @@ class ForgetPasswordView extends GetView {
                       height: 32,
                     ),
                     customTextFormField(
-                      hint: AppStrings.phoneNumber,
-                      keyboardType: TextInputType.number,
-                      icon: Icons.phone,
+                      hint: AppStrings.email,
+                      keyboardType: TextInputType.emailAddress,
+                      icon: Icons.person,
                       controller: controller.forgetPasswordPhoneController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please entre phone number';
+                          return 'Please entre email address';
                         }
                         return null;
                       },

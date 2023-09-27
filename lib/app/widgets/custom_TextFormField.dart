@@ -1,8 +1,7 @@
-import 'package:curve_app/app/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 typedef Validator = String? Function(String?)?;
-typedef OnChanged = void Function(String)? ;
+typedef OnChanged = void Function(String)?;
 
 Widget customTextFormFieldWidget({
   required String hint,
@@ -12,20 +11,17 @@ Widget customTextFormFieldWidget({
   required Color color,
   required Color iconColor,
   TextInputType? keyboardType,
-  required OnChanged onChanged ,
+  required OnChanged onChanged,
   bool obscure = false,
 }) {
   return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.05) ,
-              spreadRadius: 2 ,
-              blurRadius: 2
-          ),
-        ]
-    ),
+    decoration:
+        BoxDecoration(borderRadius: BorderRadius.circular(10), boxShadow: [
+      BoxShadow(
+          color: Colors.black.withOpacity(0.05),
+          spreadRadius: 2,
+          blurRadius: 2),
+    ]),
     child: Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
@@ -34,13 +30,13 @@ Widget customTextFormFieldWidget({
         keyboardType: keyboardType,
         onChanged: onChanged,
         validator: validator,
-        decoration:  InputDecoration(
-            filled: true ,
-            fillColor: color ,
-            border: InputBorder.none ,
-            hintText: hint,
-            prefixIcon: Icon(icon) ,
-            prefixIconColor: iconColor,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: color,
+          border: InputBorder.none,
+          hintText: hint,
+          prefixIcon: Icon(icon),
+          prefixIconColor: iconColor,
         ),
       ),
     ),
