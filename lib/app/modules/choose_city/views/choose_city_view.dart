@@ -81,6 +81,7 @@ class ChooseCityView extends GetView<ChooseCityController> {
                             child: Column(
                               children: [
                                 CSCPicker(
+                                  layout: Layout.vertical,
                                   key: controller.cscPickerKey,
                                   showStates: true,
                                   showCities: true,
