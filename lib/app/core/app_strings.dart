@@ -12,7 +12,6 @@ class AppStrings {
   static const String loginToOpen = "سجل دخول لفتح الميزات الجديدة الرائعة";
   static const String serviceRequester = "طالب الخدمة";
   static const String serviceProvider = "مقدم الخدمة";
-  static const String emailAndPhone = "البريد الالكتروني / رقم الجوال";
   static const String password = "كلمة المرور";
   static const String forgetPassword = "نسيت كلمة المرور ؟";
   static const String doNotHaveAccount = "ليس لديك حساب ؟";
@@ -21,22 +20,30 @@ class AppStrings {
 
   static const String forgetPass = "نسيت كلمة المرور";
   static const String entrePhoneNumber =
-      "من فضلك أدخل رقم الهاتف لنستطيع ارسال لك كود\n استعادة كلمة المرور";
+      "من فضلك أدخل البريد الالكترونى لنستطيع ارسال لك كود\n استعادة كلمة المرور";
   static const String phoneNumber = "رقم الهاتف";
   static const String next = "التالي";
   static const String rememberPassword = "تذكرت كلمة المرور";
   static const String backCodePassword = "كود استرجاع كلمة المرور";
-  static const String entreCode = "قم بإدخال الكود المرسل لك علي رقم هاتفك";
+  static const String entreCode =
+      "قم بإدخال الكود المرسل لك علي بريدك الالكترونى";
   static const String resent = "إعادة ارسال";
   static const String createNewPassword = "إنشاء كلمة مرور جديدة";
   static const String pleaseEntreNewPassword =
       "من فضلك قم بإدخال كلمة مرور جديدة";
   static const String confirmPassword = "تأكيد كلمة المرور";
   static const String confirm = "تأكيد";
-  static const String createnewAccount = "إنشاء حساب جديد" ;
-  static const String phoneNum = "رقم الجوال" ;
-  static const String email = "البريد الاليكترونى" ;
-  static const String name = "الاسم" ;
-  static const String confirmPass = "تأكيد كلمه المرور" ;
-  static const String agreeSH = "الموافقه على الشروط والاحكام" ;
+  static const String createNewAccount = "إنشاء حساب جديد";
+
+  static const String phoneNum = "رقم الجوال";
+
+  static const String email = "البريد الالكترونى";
+
+  static const String name = "الاسم";
+
+  static const String confirmPass = "تأكيد كلمه المرور";
+
+  static const String agreeSH = "الموافقه على الشروط والاحكام";
+
+  static const String haveAccount = "لديك حساب بالفعل";
 }

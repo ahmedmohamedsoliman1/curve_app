@@ -145,7 +145,8 @@ class LoginView extends GetView<LoginController> {
                                   height: 28,
                                 ),
                                 customTextFormField(
-                                  hint: AppStrings.emailAndPhone,
+                                  hint: AppStrings.email,
+                                  keyboardType: TextInputType.emailAddress,
                                   icon: Icons.person,
                                   iconColor: AppColors.primaryColor,
                                   controller: controllerLogin.emailController,
@@ -260,6 +261,35 @@ class LoginView extends GetView<LoginController> {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 30,
+                                      height: 30,
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                            'assets/images/linkedin.png'),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                      height: 30,
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                            'assets/images/google.png'),
+                                      ),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
