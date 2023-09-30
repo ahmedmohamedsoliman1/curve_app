@@ -82,16 +82,8 @@ class RegisterView extends GetView<RegisterController> {
                             height: heightMediaQuery(
                                 height: 0.05, context: context),
                           ),
-                          Row(
+                          Stack(
                             children: [
-                              const CountryCodePicker(
-                                onChanged: print,
-                                initialSelection: 'EG',
-                                favorite: ['+20', 'EG'],
-                                showCountryOnly: false,
-                                showOnlyCountryWhenClosed: false,
-                                alignLeft: false,
-                              ),
                               Expanded(
                                 child: customTextFormFieldWidget(
                                     color: AppColors.whiteColor,
@@ -103,6 +95,14 @@ class RegisterView extends GetView<RegisterController> {
                                     keyboardType: TextInputType.number,
                                     obscure: false,
                                     controller: controller.phoneController),
+                              ),
+                              const CountryCodePicker(
+                                onChanged: print,
+                                initialSelection: 'EG',
+                                favorite: ['+20', 'EG'],
+                                showCountryOnly: false,
+                                showOnlyCountryWhenClosed: false,
+                                alignLeft: false,
                               ),
                             ],
                           ),
