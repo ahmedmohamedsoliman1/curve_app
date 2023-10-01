@@ -5,7 +5,7 @@ description: A new Flutter project.
 environment: 
   sdk: '>=3.0.5 <4.0.0'
 
-dependencies: 
+dependencies:
   percent_indicator: ^4.0.1
   cupertino_icons: ^1.0.2
   get: any
@@ -15,6 +15,7 @@ dependencies:
   csc_picker: 0.2.7
   dio: 5.3.3
   shared_preferences: 2.2.1
+  intl_phone_number_input: ^0.7.3+1
   flutter: 
     sdk: flutter
 
