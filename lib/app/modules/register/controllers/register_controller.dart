@@ -14,6 +14,8 @@ class RegisterController extends GetxController {
   bool checkBoxValue = false ;
   AuthService service = AuthService();
   CountryCode code = CountryCode() ;
+  var formKey = GlobalKey<FormState>();
+
   @override
   void onInit() {
     super.onInit();
@@ -52,6 +54,28 @@ class RegisterController extends GetxController {
        }
      }
 
+  }
+
+  void onChangedPhone (String inputPhone){
+    phoneController.text = inputPhone ;
+    update();
+  }
+  void onChangedName (String inputName){
+    nameController.text = inputName ;
+    update();
+  }
+  void onChangedEmail (String inputEmail){
+    emailController.text = inputEmail ;
+    update();
+  }
+
+  void onChangedPassword (String inputPassword){
+    passwordController.text = inputPassword ;
+    update();
+  }
+  void onChangedRePassword (String inputRePassword){
+    rePasswordController.text = inputRePassword ;
+    update();
   }
 
   void onChangedCode (CountryCode selectedCode){

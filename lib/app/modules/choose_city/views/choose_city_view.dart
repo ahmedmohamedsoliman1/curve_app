@@ -25,9 +25,9 @@ class ChooseCityView extends GetView<ChooseCityController> {
                 networkController.connectivityStatus == 1 ? Scaffold(
                 body: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: ListView(
+                  child: Column(
                     children: [
-                      SizedBox(height: heightMediaQuery(height: 0.04, context: context),),
+                      SizedBox(height: heightMediaQuery(height: 0.1, context: context),),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
