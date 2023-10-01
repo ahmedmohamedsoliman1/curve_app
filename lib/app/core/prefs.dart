@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../data/registerResponseModel.dart';
+import '../data/auth/registerResponseModel.dart';
 class Prefs {
 
   static late SharedPreferences prefs ;
 
 
   static  Future <bool> saveString ({required String key , required String value})async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, value);
   }
 
@@ -15,8 +14,11 @@ class Prefs {
     return prefs.setString(key, jsonEncode(object));
   }
 
-  static String? getMap ({required String key}){
-    return prefs.getString(key);
+  static Map<String, dynamic> getMap(
+      String key,
+      ) {
+    final data = getString(key: key);
+    return jsonDecode(data!) as Map<String, dynamic>;
   }
 
   static String? getString ({required String key}) {
@@ -36,7 +38,7 @@ class Prefs {
     return getString(key: key);
   }
 
-  static String? getUser ({required String key}){
-    return getMap(key: key);
+  static Map<String, dynamic> getUser ({required String key}){
+    return getMap(key);
   }
 }
