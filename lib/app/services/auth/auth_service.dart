@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:curve_app/app/core/api_constants.dart';
 import 'package:curve_app/app/core/api_dio.dart';
+import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 
 import '../../data/auth/registerResponseModel.dart';
 
@@ -12,7 +16,7 @@ class AuthService {
     required String city , required String type
   }
   ) async {
-    String url = "https://curve.best/api/register";
+    String url = ApiConstants.registerApi;
     var response = await Api.post(url , body: {
       "name" : name ,
       "email" : email ,
