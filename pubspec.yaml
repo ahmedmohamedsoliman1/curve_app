@@ -15,7 +15,6 @@ dependencies:
   csc_picker: 0.2.7
   dio: 5.3.3
   shared_preferences: 2.2.1
-  intl_phone_number_input: ^0.7.3+1
   flutter: 
     sdk: flutter
 

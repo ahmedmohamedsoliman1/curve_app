@@ -1,7 +1,11 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:curve_app/app/core/prefs.dart';
+import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
+import '../../choose_city/views/choose_city_view.dart';
 
 class RegisterController extends GetxController {
 
@@ -15,6 +19,7 @@ class RegisterController extends GetxController {
   AuthService service = AuthService();
   CountryCode code = CountryCode() ;
   var formKey = GlobalKey<FormState>();
+  RxBool isLoading = false.obs ;
 
   @override
   void onInit() {
@@ -37,20 +42,26 @@ class RegisterController extends GetxController {
   }
 
   void registerFun ()async{
+    isLoading.value = true ;
     var response = await service.register(
         name: nameController.text,
         email: emailController.text,
         phone: phoneController.text,
         password: passwordController.text,
-        country: code.toString(),
+        country: code == null ? "+20" : code.toString(),
         governarate: "",
         city: "",
         type: type);
      if (response != null){
        if (response.data != null){
-         print("okokokok");
+         isLoading.value = false ;
+         await Prefs.saveUser(key: PrefsKeys.currentUser, model: response);
+         print("saved");
+         Get.to(() => const ChooseCityView());
        }else {
-         print("false");
+         isLoading.value = false ;
+         print("error");
+         Get.snackbar("خطأ فى أنشاء الحساب", "${response.errors}");
        }
      }
 
@@ -79,7 +90,6 @@ class RegisterController extends GetxController {
   }
 
   void onChangedCode (CountryCode selectedCode){
-    print(selectedCode);
    code = selectedCode ;
     update();
   }

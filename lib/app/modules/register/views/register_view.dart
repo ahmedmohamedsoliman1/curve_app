@@ -247,21 +247,52 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 0.07, context: context),
                               width:
                                   widthMediaQuery(width: 0.5, context: context),
-                              child: CustomButton(
-                                  text: AppStrings.next,
-                                  onPressed: () {
-                                    if(controller.formKey.currentState!.validate()){
-                                      controller.registerFun();
-                                      Get.to(() => const ChooseCityView());
-                                    }
-                                  },
-                                  textColor: AppColors.whiteColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                  isShown: false,
-                                  radius: 10,
-                                  padding: 0,
-                                  backgroundColor: AppColors.primaryColor),
+                              child: Obx ((){
+                                if (controller.isLoading.value == true){
+                                  return ElevatedButton(
+                                    onPressed: null,
+                                    style: ElevatedButton.styleFrom(
+                                      shape:
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                      backgroundColor: AppColors.primaryColor,
+                                    ),
+                                    child: const Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(10),
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }else {
+                                  return CustomButton(
+                                      text: AppStrings.next,
+                                      onPressed: () {
+                                        if(controller.formKey.currentState!.validate()){
+                                          if (controller.checkBoxValue == true){
+                                            controller.registerFun();
+                                          }else {
+                                            Get.snackbar("برجاء أكمال التسجيل",
+                                                "من فضلك برجاء الموافقه على الشروط والاحكام" ,
+                                                snackPosition: SnackPosition.BOTTOM ,
+                                                backgroundColor: Colors.white ,
+                                                icon: const Icon(Icons.error , color: Colors.red,));
+                                          }
+                                        }
+                                      },
+                                      textColor: AppColors.whiteColor,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                      isShown: false,
+                                      radius: 10,
+                                      padding: 0,
+                                      backgroundColor: AppColors.primaryColor);
+                                }
+                              }),
                             ),
                             const SizedBox(
                               height: 29,
