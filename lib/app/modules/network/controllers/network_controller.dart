@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
 import '../../../core/app_colors.dart';
 
 class NetworkController extends GetxController {

@@ -13,6 +13,8 @@ dependencies:
   connectivity_plus: 4.0.2
   country_code_picker: 3.0.0
   csc_picker: 0.2.7
+  dio: 5.3.3
+  shared_preferences: 2.2.1
   flutter: 
     sdk: flutter
 
