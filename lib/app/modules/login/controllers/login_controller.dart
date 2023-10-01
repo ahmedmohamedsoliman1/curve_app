@@ -12,7 +12,7 @@ class LoginController extends GetxController {
   TextEditingController forgetPasswordPhoneController = TextEditingController();
   AuthService service = AuthService();
 
-  //String type = Get.arguments["type"];
+  String type = '' /*Get.arguments["type"]*/;
 
   final interval = const Duration(seconds: 1);
 
@@ -35,11 +35,11 @@ class LoginController extends GetxController {
     });
   }
 
-/*  void loginWithEmailAndPassword() async {
+  void loginWithEmailAndPassword() async {
     var response = await service.login(
       email: emailController.text,
       password: passwordController.text,
-      type: type,
+      type: '',
     );
     if (response != null) {
       if (response.data != null) {
@@ -48,7 +48,7 @@ class LoginController extends GetxController {
         print("false");
       }
     }
-  }*/
+  }
 
   @override
   void onInit() {

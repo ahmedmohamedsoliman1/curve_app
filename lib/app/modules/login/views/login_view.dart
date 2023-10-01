@@ -1,6 +1,7 @@
 import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
 import 'package:curve_app/app/core/app_strings.dart';
+import 'package:curve_app/app/modules/home/views/home_view.dart';
 import 'package:curve_app/app/modules/login/views/forget_password_view.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
@@ -214,7 +215,11 @@ class LoginView extends GetView<LoginController> {
                                   onPressed: () {
                                     if (controllerLogin
                                         .formKeyForLoginView.currentState!
-                                        .validate()) {}
+                                        .validate()) {
+                                      controllerLogin
+                                          .loginWithEmailAndPassword();
+                                      Get.to(const HomeView());
+                                    }
                                   },
                                   btnPaddingHorizontal: .15,
                                   btnPaddingVertical: .025,
