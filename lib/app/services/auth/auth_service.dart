@@ -12,7 +12,7 @@ class AuthService {
     required String city , required String type
   }
   ) async {
-    String url = ApiConstants.registerApi ;
+    String url = "https://curve.best/api/register";
     var response = await Api.post(url , body: {
       "name" : name ,
       "email" : email ,
@@ -22,7 +22,10 @@ class AuthService {
       "governrate" : governarate ,
        "city" : city ,
       "type" : type
-    } , isFormData: true) ;
+    } , isFormData: true , headers: {
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+    }) ;
 
     if (response.data["data"] != null){
       print(response.data["data"]);

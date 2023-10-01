@@ -117,6 +117,9 @@ class LoginView extends GetView<LoginController> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: TabBar(
+                                        onTap: (index){
+                                          controllerLogin.onSelectedTabs(index);
+                                        },
                                         indicator: BoxDecoration(
                                           color: AppColors.primaryColor,
                                           borderRadius:
@@ -245,7 +248,11 @@ class LoginView extends GetView<LoginController> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(() => const RegisterView());
+                                        Get.to(() => const RegisterView() ,
+                                        arguments: {
+                                          "type" : controllerLogin.selectedIndex ==0 ?
+                                              "user" : "engineer"
+                                        });
                                       },
                                       child: const Text(
                                         AppStrings.newAccount,

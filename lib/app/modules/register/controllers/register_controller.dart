@@ -10,6 +10,7 @@ class RegisterController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
+  String type = Get.arguments["type"];
   bool checkBoxValue = false ;
   AuthService service = AuthService();
   CountryCode code = CountryCode() ;
@@ -33,21 +34,28 @@ class RegisterController extends GetxController {
     update();
   }
 
-  // void registerFun ()async{
-  //   var response = await service.register(
-  //       name: nameController.text,
-  //       email: emailController.text,
-  //       phone: phoneController.text,
-  //       password: passwordController.text,
-  //       country: country,
-  //       governarate: "",
-  //       city: "",
-  //       type: type);
-  //
-  //
-  // }
+  void registerFun ()async{
+    var response = await service.register(
+        name: nameController.text,
+        email: emailController.text,
+        phone: phoneController.text,
+        password: passwordController.text,
+        country: code.toString(),
+        governarate: "",
+        city: "",
+        type: type);
+     if (response != null){
+       if (response.data != null){
+         print("okokokok");
+       }else {
+         print("false");
+       }
+     }
+
+  }
 
   void onChangedCode (CountryCode selectedCode){
+    print(selectedCode);
    code = selectedCode ;
     update();
   }

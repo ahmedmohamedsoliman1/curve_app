@@ -13,6 +13,7 @@ class LoginController extends GetxController {
   final interval = const Duration(seconds: 1);
 
   final int timerMaxSeconds = 60;
+  int selectedIndex = 0 ;
 
   int currentSeconds = 0;
 
@@ -43,5 +44,11 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void onSelectedTabs(int index){
+    selectedIndex = index ;
+    print(selectedIndex);
+    update();
   }
 }

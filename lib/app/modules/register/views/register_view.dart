@@ -195,6 +195,7 @@ class RegisterView extends GetView<RegisterController> {
                             child: CustomButton(
                                 text: AppStrings.next,
                                 onPressed: () {
+                                  controller.registerFun();
                                   Get.to(() => const ChooseCityView());
                                 },
                                 textColor: AppColors.whiteColor,
