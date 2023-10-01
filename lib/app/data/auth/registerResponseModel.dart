@@ -2,13 +2,17 @@ class RegisterResponseModel {
   Data? data;
   String? token;
   String? type;
+  String? message ;
+  String? errors ;
 
-  RegisterResponseModel({this.data, this.token, this.type});
+  RegisterResponseModel({this.data, this.token, this.type , this.message , this.errors});
 
   RegisterResponseModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     token = json['token'];
     type = json['type'];
+    message = json["message"] ;
+    errors = json["errors"];
   }
 
   Map<String, dynamic> toJson() {

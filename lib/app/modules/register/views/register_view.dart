@@ -84,22 +84,22 @@ class RegisterView extends GetView<RegisterController> {
                           ),
                           Stack(
                             children: [
-                              Expanded(
-                                child: customTextFormFieldWidget(
-                                    color: AppColors.whiteColor,
-                                    icon: Icons.phone,
-                                    hint: AppStrings.phoneNum,
-                                    iconColor: AppColors.primaryColor,
-                                    onChanged: (input) {},
-                                    validator: (input) {},
-                                    keyboardType: TextInputType.number,
-                                    obscure: false,
-                                    controller: controller.phoneController),
-                              ),
-                              const CountryCodePicker(
-                                onChanged: print,
+                              customTextFormFieldWidget(
+                                  color: AppColors.whiteColor,
+                                  icon: Icons.phone,
+                                  hint: AppStrings.phoneNum,
+                                  iconColor: AppColors.primaryColor,
+                                  onChanged: (input) {},
+                                  validator: (input) {},
+                                  keyboardType: TextInputType.number,
+                                  obscure: false,
+                                  controller: controller.phoneController),
+                              CountryCodePicker(
+                                onChanged: (CountryCode code){
+                                  controller.onChangedCode(code);
+                                },
                                 initialSelection: 'EG',
-                                favorite: ['+20', 'EG'],
+                                favorite: const ['+20', 'EG'],
                                 showCountryOnly: false,
                                 showOnlyCountryWhenClosed: false,
                                 alignLeft: false,

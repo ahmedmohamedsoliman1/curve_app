@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'api_client.dart';
+import 'api_constants.dart';
 
 
 // ignore: non_constant_identifier_names
