@@ -4,7 +4,6 @@ import '../core/prefs.dart';
 import '../core/prefs_keys.dart';
 
 class ProfileServices {
-
   static get currentUser =>
       currentUserModel(Prefs.getMap(PrefsKeys.currentUser));
 
@@ -13,7 +12,7 @@ class ProfileServices {
   }
 
   static currentUserModel(Map<String, dynamic> userData) {
-   return RegisterResponseModel.fromJson(userData);
+    return RegisterResponseModel.fromJson(userData);
   }
 
   static saveCurrentUser(Map<String, dynamic> userData) {
@@ -21,6 +20,4 @@ class ProfileServices {
     Prefs.setMap(key: PrefsKeys.currentUser, object: currentUser.toJson());
     saveUserToken(currentUser.token);
   }
-
-
 }

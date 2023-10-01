@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:curve_app/app/services/auth/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -9,11 +10,14 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController forgetPasswordPhoneController = TextEditingController();
+  AuthService service = AuthService();
+
+  //String type = Get.arguments["type"];
 
   final interval = const Duration(seconds: 1);
 
   final int timerMaxSeconds = 60;
-  int selectedIndex = 0 ;
+  int selectedIndex = 0;
 
   int currentSeconds = 0;
 
@@ -31,6 +35,21 @@ class LoginController extends GetxController {
     });
   }
 
+/*  void loginWithEmailAndPassword() async {
+    var response = await service.login(
+      email: emailController.text,
+      password: passwordController.text,
+      type: type,
+    );
+    if (response != null) {
+      if (response.data != null) {
+        print("okokokok");
+      } else {
+        print("false");
+      }
+    }
+  }*/
+
   @override
   void onInit() {
     super.onInit();
@@ -46,8 +65,8 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void onSelectedTabs(int index){
-    selectedIndex = index ;
+  void onSelectedTabs(int index) {
+    selectedIndex = index;
     print(selectedIndex);
     update();
   }
