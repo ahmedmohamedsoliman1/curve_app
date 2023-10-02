@@ -8,6 +8,7 @@ class ChooseCityController extends GetxController {
   String stateValue = "";
   String cityValue = "";
   String address = "";
+  String country = Get.arguments["country"];
   GlobalKey<CSCPickerState> cscPickerKey = GlobalKey();
 
   @override
