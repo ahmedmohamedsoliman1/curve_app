@@ -3,6 +3,7 @@ import 'package:curve_app/app/core/prefs.dart';
 import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../choose_city/views/choose_city_view.dart';
@@ -17,12 +18,14 @@ class RegisterController extends GetxController {
   String type = Get.arguments["type"];
   bool checkBoxValue = false ;
   AuthService service = AuthService();
-  CountryCode code = CountryCode() ;
+  String countryName = "" ;
   var formKey = GlobalKey<FormState>();
   RxBool isLoading = false.obs ;
+  FocusNode focusNode = FocusNode();
 
   @override
   void onInit() {
+    print(type);
     super.onInit();
   }
 
@@ -48,23 +51,29 @@ class RegisterController extends GetxController {
         email: emailController.text,
         phone: phoneController.text,
         password: passwordController.text,
-        country: code == null ? "+20" : code.toString(),
+        country: countryName == "" ? "Egypt" : countryName,
         governarate: "",
         city: "",
         type: type);
      if (response != null){
-       if (response.data != null){
+       if (response.message == null){
          isLoading.value = false ;
          await Prefs.saveUser(key: PrefsKeys.currentUser, model: response);
          print("saved");
-         Get.to(() => const ChooseCityView());
-       }else {
-         isLoading.value = false ;
-         print("error");
-         Get.snackbar("خطأ فى أنشاء الحساب", "${response.errors}");
+         Get.to(() => const ChooseCityView() ,
+         arguments: {
+           "country" : countryName
+         });
        }
+       }else {
+       print("ffffffffffff");
+       isLoading.value = false ;
+       print("error");
+       Get.snackbar("خطأ فى أنشاء الحساب", "البريد الاليكترونى أو رقم الهاتف مسجل سابقا" ,
+           snackPosition: SnackPosition.TOP ,
+           backgroundColor: Colors.white ,
+           icon: const Icon(Icons.error , color: Colors.red,));
      }
-
   }
 
   void onChangedPhone (String inputPhone){
@@ -89,8 +98,8 @@ class RegisterController extends GetxController {
     update();
   }
 
-  void onChangedCode (CountryCode selectedCode){
-   code = selectedCode ;
+  void onChangedCountry (String selectedCountry){
+   countryName = selectedCountry ;
     update();
   }
 

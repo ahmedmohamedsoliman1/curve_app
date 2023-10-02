@@ -111,7 +111,7 @@ class LoginView extends GetView<LoginController> {
                                   borderRadius: BorderRadius.circular(10),
                                   child: DefaultTabController(
                                     length: 2,
-                                    initialIndex: 1,
+                                    initialIndex: 0,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: AppColors.whiteColor,
@@ -255,8 +255,9 @@ class LoginView extends GetView<LoginController> {
                                       onTap: () {
                                         Get.to(() => const RegisterView() ,
                                         arguments: {
-                                          "type" : controllerLogin.selectedIndex ==0 ?
-                                              "user" : "engineer"
+                                          "type" : controllerLogin.isPressed == true ?
+                                          controllerLogin.selectedIndex == 0 ?
+                                          "user" : "engineer" : "user"
                                         });
                                       },
                                       child: const Text(

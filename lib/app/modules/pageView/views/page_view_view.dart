@@ -170,7 +170,10 @@ class PageViewView extends GetView<PageViewController> {
                                           pageViewController.increasePercent();
                                           pageViewController.changeTitle();
                                           if (pageViewController.pageIndex.value == 2) {
-                                            Get.off(() => LoginView());
+                                            Get.off(() => LoginView() ,
+                                            arguments: {
+                                              "type" : ""
+                                            });
                                           }
                                       },
                                       child: CircularPercentIndicator(

@@ -12,7 +12,8 @@ class LoginController extends GetxController {
   TextEditingController forgetPasswordPhoneController = TextEditingController();
   AuthService service = AuthService();
 
-  String type = '' /*Get.arguments["type"]*/;
+  String type = Get.arguments["type"] ?? "" ;
+  bool isPressed = false ;
 
   final interval = const Duration(seconds: 1);
 
@@ -66,6 +67,7 @@ class LoginController extends GetxController {
   }
 
   void onSelectedTabs(int index) {
+    isPressed = true ;
     selectedIndex = index;
     print(selectedIndex);
     update();

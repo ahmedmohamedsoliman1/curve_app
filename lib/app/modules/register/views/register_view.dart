@@ -10,6 +10,8 @@ import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import '../../../widgets/custom_TextFormField.dart';
 import '../controllers/register_controller.dart';
 
@@ -84,43 +86,29 @@ class RegisterView extends GetView<RegisterController> {
                               height: heightMediaQuery(
                                   height: 0.05, context: context),
                             ),
-                            Stack(
-                              children: [
-                                CustomTextFormFieldWidget(
-                                  hasSuffix: false,
-                                    color: AppColors.whiteColor,
-                                    icon: Icons.phone,
-                                    hint: AppStrings.phoneNum,
-                                    iconColor: AppColors.primaryColor,
-                                    onChanged: (input) {
-                                     controller.onChangedPhone(input);
-                                    },
-                                    validator: (input) {
-                                      String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                                      RegExp regExp = RegExp(patttern);
-                                      if (input == null || input.trim().isEmpty) {
-                                        return 'Please enter mobile number';
-                                      }
-                                      else if (!regExp.hasMatch(input!)) {
-                                        return 'Please enter valid mobile number';
-                                      }
-                                      return null;
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    obscure: false,
-                                    controller: controller.phoneController),
-                                CountryCodePicker(
-                                  onChanged: (CountryCode code){
-                                    controller.onChangedCode(code);
-                                  },
-                                  initialSelection: 'EG',
-                                  favorite: const ['+20', 'EG'],
-                                  showCountryOnly: false,
-                                  showOnlyCountryWhenClosed: false,
-                                  alignLeft: false,
-                                ),
-                              ],
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: IntlPhoneField(
+                            textAlign: TextAlign.start,
+                            invalidNumberMessage: "برجاء أدخال رقم هاتف صحيح",
+                            focusNode: controller.focusNode,
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: AppColors.whiteColor,
+                              labelText: "رقم الهاتف",
+                              border: InputBorder.none,
                             ),
+                            languageCode: "ar",
+                            onChanged: (phone) {
+                              controller.phoneController.text = phone.completeNumber;
+                              print(phone.number);
+                            },
+                            onCountryChanged: (country) {
+                              controller.onChangedCountry(country.name);
+                              print('Country changed to: ${country.name}');
+                            },
+                          ),
+                        ),
                             SizedBox(
                               height: heightMediaQuery(
                                   height: 0.02, context: context),
@@ -273,12 +261,25 @@ class RegisterView extends GetView<RegisterController> {
                                       text: AppStrings.next,
                                       onPressed: () {
                                         if(controller.formKey.currentState!.validate()){
-                                          if (controller.checkBoxValue == true){
+                                          if (controller.checkBoxValue == true && controller.countryName != ""
+                                          && controller.phoneController.text != ""){
                                             controller.registerFun();
+                                          }else if (controller.countryName == ""){
+                                            Get.snackbar("كود البلد",
+                                                "من فضلك أختر كود البلد" ,
+                                                snackPosition: SnackPosition.TOP ,
+                                                backgroundColor: Colors.white ,
+                                                icon: const Icon(Icons.error , color: Colors.red,));
+                                          }else if (controller.phoneController.text == ""){
+                                            Get.snackbar("برجاء أدخال رقم الهاتف",
+                                                "برجاء أدخال رقم الهاتف واكمال التسجيل" ,
+                                                snackPosition: SnackPosition.TOP ,
+                                                backgroundColor: Colors.white ,
+                                                icon: const Icon(Icons.error , color: Colors.red,));
                                           }else {
                                             Get.snackbar("برجاء أكمال التسجيل",
-                                                "من فضلك برجاء الموافقه على الشروط والاحكام" ,
-                                                snackPosition: SnackPosition.BOTTOM ,
+                                                "برجاء الموافقه على الشروط والاحكام" ,
+                                                snackPosition: SnackPosition.TOP ,
                                                 backgroundColor: Colors.white ,
                                                 icon: const Icon(Icons.error , color: Colors.red,));
                                           }
@@ -316,7 +317,10 @@ class RegisterView extends GetView<RegisterController> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.to(() => LoginView());
+                                    Get.to(() => LoginView() ,
+                                    arguments: {
+                                      "type" : ""
+                                    });
                                   },
                                   child: const Text(
                                     AppStrings.login,
