@@ -1,4 +1,5 @@
 import 'package:csc_picker/csc_picker.dart';
+import 'package:curve_app/app/data/auth/registerResponseModel.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:get/get.dart';
 import '../../../core/app_colors.dart';
 import '../../../core/app_media_query.dart';
 import '../../../core/app_strings.dart';
+import '../../../core/prefs.dart';
+import '../../../core/prefs_keys.dart';
 import '../../../widgets/custom_button.dart';
 import '../../login/views/password_recovery_code_view.dart';
 import '../controllers/choose_city_controller.dart';
@@ -25,33 +28,10 @@ class ChooseCityView extends GetView<ChooseCityController> {
                 networkController.connectivityStatus == 1 ? Scaffold(
                 body: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
+                  child: ListView(
+                    shrinkWrap: true,
                     children: [
                       SizedBox(height: heightMediaQuery(height: 0.1, context: context),),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: CustomButton(
-                                icon: Icons.arrow_forward_ios,
-                                iconColor: AppColors.whiteColor,
-                                text: "",
-                                onPressed: (){
-                                  Get.back();
-                                },
-                                textColor: Colors.transparent,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 1,
-                                isShown: true,
-                                radius: 10,
-                                padding: 0,
-                                backgroundColor: AppColors.primaryColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: heightMediaQuery(height: 0.02, context: context),),
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -96,7 +76,7 @@ class ChooseCityView extends GetView<ChooseCityController> {
                                       color: Colors.grey.shade300,
                                       border:
                                       Border.all(color: Colors.grey.shade300, width: 1)),
-                                  countryDropdownLabel: "اختر الدوله",
+                                  countryDropdownLabel: controller.country,
                                   stateDropdownLabel: "أختر المنطقه",
                                   cityDropdownLabel: "أختر المحافظه",
                                   selectedItemStyle: const TextStyle(
@@ -122,6 +102,7 @@ class ChooseCityView extends GetView<ChooseCityController> {
                                   onCityChanged: (String? value){
                                     controller.onCityChanged(value);
                                   },
+                                  currentCountry: controller.country,
                                 ),
                                 const SizedBox(height: 30,),
                                 Container(
@@ -146,8 +127,26 @@ class ChooseCityView extends GetView<ChooseCityController> {
                         width: widthMediaQuery(width: 0.5, context: context),
                         child: CustomButton(
                             text: AppStrings.next,
-                            onPressed: (){
-                              Get.to(()=> const PasswordRecoveryCodeView());
+                            onPressed: ()async{
+                              Get.off(()=> const PasswordRecoveryCodeView());
+                              await Prefs.saveUser(key: PrefsKeys.currentUser, model: controller.user.copyWith(
+                                  data: Data(
+                                    governrate: controller.stateValue ,
+                                    city: controller.cityValue,
+                                    country: controller.countryValue ,
+                                    type: controller.user.data!.type ,
+                                    name: controller.user.data!.name ,
+                                    id: controller.user.data!.id ,
+                                    createdAt: controller.user.data!.createdAt,
+                                    email: controller.user.data!.email ,
+                                    phone: controller.user.data!.phone ,
+                                    updatedAt: controller.user.data!.updatedAt,
+                                    platform: controller.user.data!.platform ,
+                                  )
+                              ));
+                              print(controller.user.data!.country);
+                              print(controller.user.data!.city);
+                              print(controller.user.data!.governrate);
                             },
                             textColor: AppColors.whiteColor,
                             fontWeight: FontWeight.normal,

@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:curve_app/app/core/prefs.dart';
 import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
@@ -15,7 +14,7 @@ class RegisterController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
-  String type = Get.arguments["type"];
+  String? type  = "" ;
   bool checkBoxValue = false ;
   AuthService service = AuthService();
   String countryName = "" ;
@@ -25,6 +24,7 @@ class RegisterController extends GetxController {
 
   @override
   void onInit() {
+  type = Get.arguments["type"];
     print(type);
     super.onInit();
   }
@@ -54,21 +54,19 @@ class RegisterController extends GetxController {
         country: countryName == "" ? "Egypt" : countryName,
         governarate: "",
         city: "",
-        type: type);
+        type: type!);
      if (response != null){
        if (response.message == null){
          isLoading.value = false ;
          await Prefs.saveUser(key: PrefsKeys.currentUser, model: response);
          print("saved");
-         Get.to(() => const ChooseCityView() ,
+         Get.off(() => const ChooseCityView() ,
          arguments: {
            "country" : countryName
          });
        }
        }else {
-       print("ffffffffffff");
        isLoading.value = false ;
-       print("error");
        Get.snackbar("خطأ فى أنشاء الحساب", "البريد الاليكترونى أو رقم الهاتف مسجل سابقا" ,
            snackPosition: SnackPosition.TOP ,
            backgroundColor: Colors.white ,
@@ -100,6 +98,7 @@ class RegisterController extends GetxController {
 
   void onChangedCountry (String selectedCountry){
    countryName = selectedCountry ;
+   print(type);
     update();
   }
 

@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:curve_app/app/data/auth/registerResponseModel.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
+import 'package:curve_app/app/services/profile_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -12,13 +14,14 @@ class LoginController extends GetxController {
   TextEditingController forgetPasswordPhoneController = TextEditingController();
   AuthService service = AuthService();
 
-  String type = Get.arguments["type"] ?? "" ;
+  String type = "" ;
   bool isPressed = false ;
 
   final interval = const Duration(seconds: 1);
 
   final int timerMaxSeconds = 60;
   int selectedIndex = 0;
+  RegisterResponseModel user = ProfileServices.currentUser ;
 
   int currentSeconds = 0;
 
@@ -53,6 +56,13 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    print("${user.data!.city} : city===========");
+    print("${user.data!.governrate} : governarate================");
+    print("${user.data!.country} : country================");
+    print("${user.data!.type} : type=================");
+    print("${user.data!.id} : id=====================");
+    print("${user.data!.name} : name=====================");
+    print("${user.data!.email} : email=====================");
     super.onInit();
   }
 
