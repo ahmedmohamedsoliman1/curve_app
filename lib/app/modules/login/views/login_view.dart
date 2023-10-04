@@ -1,14 +1,14 @@
 import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
 import 'package:curve_app/app/core/app_strings.dart';
-import 'package:curve_app/app/modules/home/views/home_view.dart';
+import 'package:curve_app/app/core/extension.dart';
 import 'package:curve_app/app/modules/login/views/forget_password_view.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:curve_app/app/modules/register/views/register_view.dart';
+import 'package:curve_app/app/widgets/custom_TextFormField.dart';
 import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:curve_app/app/widgets/custom_elevated_button.dart';
-import 'package:curve_app/app/widgets/custom_text_form_feild.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +22,7 @@ class LoginView extends GetView<LoginController> {
     return GetBuilder<LoginController>(
       init: LoginController(),
       builder: (controllerLogin) {
-        return GetBuilder(
+        return GetBuilder<NetworkController>(
             init: NetworkController(),
             builder: (controller) {
               return controller.connectivityStatus == 4 ||
@@ -118,7 +118,7 @@ class LoginView extends GetView<LoginController> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: TabBar(
-                                        onTap: (index){
+                                        onTap: (index) {
                                           controllerLogin.onSelectedTabs(index);
                                         },
                                         indicator: BoxDecoration(
@@ -148,44 +148,53 @@ class LoginView extends GetView<LoginController> {
                                 const SizedBox(
                                   height: 28,
                                 ),
-                                customTextFormField(
+                                CustomTextFormFieldWidget(
+                                  hasSuffix: false,
+                                  color: AppColors.whiteColor,
+                                  icon: Icons.email,
                                   hint: AppStrings.email,
-                                  keyboardType: TextInputType.emailAddress,
-                                  icon: Icons.person,
                                   iconColor: AppColors.primaryColor,
-                                  controller: controllerLogin.emailController,
-                                  validator: (value) {
-                                    if (value == null || value.trim().isEmpty) {
-                                      return 'Please entre your correct Email';
-                                    }
-                                    final bool emailValid = RegExp(
-                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                        .hasMatch(controllerLogin
-                                            .emailController.text);
-                                    if (!emailValid) {
-                                      return 'Please entre valid email like john@gmail.com';
-                                    }
-                                    return null;
+                                  onChanged: (input) {
+                                    controllerLogin.onChangedEmail(input);
                                   },
-                                  color: AppColors.blackColor,
+                                  validator: (input) {
+                                    if (input == null || input.trim().isEmpty) {
+                                      return "من فضلك أدخل البريد الالكترونى";
+                                    } else if (!input.isValidEmail()) {
+                                      return "من فضلك أدخل بريد ألكترونى صحيح";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  keyboardType: TextInputType.emailAddress,
+                                  obscure: false,
+                                  controller: controllerLogin.emailController,
                                 ),
                                 const SizedBox(
                                   height: 28,
                                 ),
-                                customTextFormField(
-                                  hint: AppStrings.password,
-                                  obscure: true,
+                                CustomTextFormFieldWidget(
+                                  hasSuffix: true,
+                                  color: AppColors.whiteColor,
                                   icon: Icons.lock,
+                                  hint: AppStrings.password,
                                   iconColor: AppColors.primaryColor,
+                                  onChanged: (input) {
+                                    controllerLogin.onChangedPassword(input);
+                                  },
+                                  validator: (input) {
+                                    if (input == null || input.trim().isEmpty) {
+                                      return "من فضلك أدخل كلمه المرور";
+                                    } else if (input.length < 4) {
+                                      return "كلمه المرور على الاقل أربع حروف أو أرقام";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  keyboardType: TextInputType.visiblePassword,
+                                  obscure: true,
                                   controller:
                                       controllerLogin.passwordController,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please entre password';
-                                    }
-                                    return null;
-                                  },
-                                  color: AppColors.blackColor,
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -211,24 +220,58 @@ class LoginView extends GetView<LoginController> {
                                 const SizedBox(
                                   height: 32,
                                 ),
-                                CustomElevatedButton(
-                                  onPressed: () {
-                                    if (controllerLogin
-                                        .formKeyForLoginView.currentState!
-                                        .validate()) {
-                                      controllerLogin
-                                          .loginWithEmailAndPassword();
-                                      Get.to(const HomeView());
+                                SizedBox(
+                                  height: heightMediaQuery(
+                                      height: 0.07, context: context),
+                                  width: widthMediaQuery(
+                                      width: 0.54, context: context),
+                                  child: Obx(() {
+                                    if (controllerLogin.isLoading.value ==
+                                        true) {
+                                      return ElevatedButton(
+                                        onPressed: null,
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          backgroundColor:
+                                              AppColors.primaryColor,
+                                        ),
+                                        child: const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return CustomElevatedButton(
+                                        onPressed: () {
+                                          if (controllerLogin
+                                              .formKeyForLoginView.currentState!
+                                              .validate()) {
+                                            controllerLogin
+                                                .loginWithEmailAndPassword();
+                                          }
+                                        },
+                                        btnPaddingHorizontal: .15,
+                                        btnPaddingVertical: .025,
+                                        btnText: AppStrings.login,
+                                        btnBackgroundColor:
+                                            AppColors.primaryColor,
+                                        textColor: AppColors.whiteColor,
+                                        btnRadius: 14,
+                                        textFontSize: 14,
+                                        textFontWeight: FontWeight.w500,
+                                      );
                                     }
-                                  },
-                                  btnPaddingHorizontal: .15,
-                                  btnPaddingVertical: .025,
-                                  btnText: AppStrings.login,
-                                  btnBackgroundColor: AppColors.primaryColor,
-                                  textColor: AppColors.whiteColor,
-                                  btnRadius: 14,
-                                  textFontSize: 14,
-                                  textFontWeight: FontWeight.w500,
+                                  }),
                                 ),
                                 const SizedBox(
                                   height: 29,
@@ -253,12 +296,18 @@ class LoginView extends GetView<LoginController> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(() => const RegisterView() ,
-                                        arguments: {
-                                          "type" : controllerLogin.isPressed == true ?
-                                          controllerLogin.selectedIndex == 0 ?
-                                          "user" : "engineer" : "user"
-                                        });
+                                        Get.to(() => const RegisterView(),
+                                            arguments: {
+                                              "type": controllerLogin
+                                                          .isPressed ==
+                                                      true
+                                                  ? controllerLogin
+                                                              .selectedIndex ==
+                                                          0
+                                                      ? "user"
+                                                      : "engineer"
+                                                  : "user"
+                                            });
                                       },
                                       child: const Text(
                                         AppStrings.newAccount,

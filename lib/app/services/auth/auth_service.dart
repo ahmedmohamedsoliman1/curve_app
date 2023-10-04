@@ -44,7 +44,6 @@ class AuthService {
   Future<LoginResponseModel?> login({
     required String email,
     required String password,
-    required String type,
   }) async {
     String url = ApiConstants.loginApi;
     var response = await Api.post(
@@ -52,7 +51,6 @@ class AuthService {
       body: {
         "email": email,
         "password": password,
-        "type": type,
       },
       isFormData: true,
     );

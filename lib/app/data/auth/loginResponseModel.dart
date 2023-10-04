@@ -1,7 +1,13 @@
 class LoginResponseModel {
+  Data? data;
+  String? token;
+  String? type;
+  String? message;
+
   LoginResponseModel({
     this.data,
     this.token,
+    this.message,
     this.type,
   });
 
@@ -9,11 +15,19 @@ class LoginResponseModel {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
     token = json['token'];
     type = json['type'];
+    message = json["message"];
   }
 
-  Data? data;
-  String? token;
-  String? type;
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (data != null) {
+      map['data'] = data?.toJson();
+    }
+    map['token'] = token;
+    map['type'] = type;
+    map['message'] = message;
+    return map;
+  }
 
   LoginResponseModel copyWith({
     Data? data,
@@ -25,16 +39,6 @@ class LoginResponseModel {
         token: token ?? this.token,
         type: type ?? this.type,
       );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (data != null) {
-      map['data'] = data?.toJson();
-    }
-    map['token'] = token;
-    map['type'] = type;
-    return map;
-  }
 }
 
 class Data {

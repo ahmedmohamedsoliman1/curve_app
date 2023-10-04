@@ -1,9 +1,7 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
 import 'package:curve_app/app/core/app_strings.dart';
 import 'package:curve_app/app/core/extension.dart';
-import 'package:curve_app/app/modules/choose_city/views/choose_city_view.dart';
 import 'package:curve_app/app/modules/login/views/login_view.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
@@ -11,7 +9,7 @@ import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart';
+
 import '../../../widgets/custom_TextFormField.dart';
 import '../controllers/register_controller.dart';
 
@@ -70,8 +68,8 @@ class RegisterView extends GetView<RegisterController> {
                               image: const AssetImage("assets/images/logo.png"),
                               width:
                                   widthMediaQuery(width: 0.5, context: context),
-                              height:
-                                  heightMediaQuery(height: 0.2, context: context),
+                              height: heightMediaQuery(
+                                  height: 0.2, context: context),
                             ),
                             const Text(
                               AppStrings.createNewAccount,
@@ -86,35 +84,37 @@ class RegisterView extends GetView<RegisterController> {
                               height: heightMediaQuery(
                                   height: 0.05, context: context),
                             ),
-                        Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: IntlPhoneField(
-                            textAlign: TextAlign.start,
-                            invalidNumberMessage: "برجاء أدخال رقم هاتف صحيح",
-                            focusNode: controller.focusNode,
-                            decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: AppColors.whiteColor,
-                              labelText: "رقم الهاتف",
-                              border: InputBorder.none,
+                            Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: IntlPhoneField(
+                                textAlign: TextAlign.start,
+                                invalidNumberMessage:
+                                    "برجاء أدخال رقم هاتف صحيح",
+                                focusNode: controller.focusNode,
+                                decoration: const InputDecoration(
+                                  filled: true,
+                                  fillColor: AppColors.whiteColor,
+                                  labelText: "رقم الهاتف",
+                                  border: InputBorder.none,
+                                ),
+                                languageCode: "ar",
+                                onChanged: (phone) {
+                                  controller.phoneController.text =
+                                      phone.completeNumber;
+                                  print(phone.number);
+                                },
+                                onCountryChanged: (country) {
+                                  controller.onChangedCountry(country.name);
+                                  print('Country changed to: ${country.name}');
+                                },
+                              ),
                             ),
-                            languageCode: "ar",
-                            onChanged: (phone) {
-                              controller.phoneController.text = phone.completeNumber;
-                              print(phone.number);
-                            },
-                            onCountryChanged: (country) {
-                              controller.onChangedCountry(country.name);
-                              print('Country changed to: ${country.name}');
-                            },
-                          ),
-                        ),
                             SizedBox(
                               height: heightMediaQuery(
                                   height: 0.02, context: context),
                             ),
                             CustomTextFormFieldWidget(
-                              hasSuffix: false,
+                                hasSuffix: false,
                                 color: AppColors.whiteColor,
                                 icon: Icons.email,
                                 hint: AppStrings.email,
@@ -123,12 +123,12 @@ class RegisterView extends GetView<RegisterController> {
                                   controller.onChangedEmail(input);
                                 },
                                 validator: (input) {
-                                  if(input == null || input.trim().isEmpty){
-                                    return "من فضلك أدخل البريد الاليكترونى" ;
-                                  }else if (!input.isValidEmail()) {
-                                    return "من فضلك أدخل بريد أليكترونى صحيح" ;
-                                  }else {
-                                    return null ;
+                                  if (input == null || input.trim().isEmpty) {
+                                    return "من فضلك أدخل البريد الاليكترونى";
+                                  } else if (!input.isValidEmail()) {
+                                    return "من فضلك أدخل بريد أليكترونى صحيح";
+                                  } else {
+                                    return null;
                                   }
                                 },
                                 keyboardType: TextInputType.emailAddress,
@@ -139,7 +139,7 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 0.02, context: context),
                             ),
                             CustomTextFormFieldWidget(
-                              hasSuffix: false,
+                                hasSuffix: false,
                                 color: AppColors.whiteColor,
                                 icon: Icons.person,
                                 hint: AppStrings.name,
@@ -148,10 +148,10 @@ class RegisterView extends GetView<RegisterController> {
                                   controller.onChangedName(input);
                                 },
                                 validator: (input) {
-                                  if(input == null || input.trim().isEmpty){
-                                    return "من فضلك أدخل الاسم" ;
-                                  }else {
-                                    return null ;
+                                  if (input == null || input.trim().isEmpty) {
+                                    return "من فضلك أدخل الاسم";
+                                  } else {
+                                    return null;
                                   }
                                 },
                                 keyboardType: TextInputType.name,
@@ -162,21 +162,21 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 0.02, context: context),
                             ),
                             CustomTextFormFieldWidget(
-                              hasSuffix: true,
+                                hasSuffix: true,
                                 color: AppColors.whiteColor,
                                 icon: Icons.lock,
                                 hint: AppStrings.password,
                                 iconColor: AppColors.primaryColor,
                                 onChanged: (input) {
-                                 controller.onChangedPassword(input);
+                                  controller.onChangedPassword(input);
                                 },
                                 validator: (input) {
-                                  if(input == null || input.trim().isEmpty){
-                                    return "من فضلك أدخل كلمه المرور" ;
-                                  }else if (input.length < 4){
-                                    return "كلمه المرور على الاقل أربع حروف أو أرقام" ;
-                                  }else {
-                                    return null ;
+                                  if (input == null || input.trim().isEmpty) {
+                                    return "من فضلك أدخل كلمه المرور";
+                                  } else if (input.length < 4) {
+                                    return "كلمه المرور على الاقل أربع حروف أو أرقام";
+                                  } else {
+                                    return null;
                                   }
                                 },
                                 keyboardType: TextInputType.visiblePassword,
@@ -187,19 +187,21 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 0.02, context: context),
                             ),
                             CustomTextFormFieldWidget(
-                              hasSuffix: true,
+                                hasSuffix: true,
                                 color: AppColors.whiteColor,
                                 icon: Icons.lock,
                                 hint: AppStrings.confirmPass,
                                 iconColor: AppColors.primaryColor,
                                 onChanged: (input) {},
                                 validator: (input) {
-                                  if(input == null || input.trim().isEmpty){
-                                    return "من فضلك أدخل تأكيد كلمه المرور" ;
-                                  }else if (controller.rePasswordController.text != controller.passwordController.text){
-                                    return "كلمه المرور غير متطابقة" ;
-                                  }else {
-                                    return null ;
+                                  if (input == null || input.trim().isEmpty) {
+                                    return "من فضلك أدخل تأكيد كلمه المرور";
+                                  } else if (controller
+                                          .rePasswordController.text !=
+                                      controller.passwordController.text) {
+                                    return "كلمه المرور غير متطابقة";
+                                  } else {
+                                    return null;
                                   }
                                 },
                                 keyboardType: TextInputType.visiblePassword,
@@ -235,17 +237,19 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 0.07, context: context),
                               width:
                                   widthMediaQuery(width: 0.5, context: context),
-                              child: Obx ((){
-                                if (controller.isLoading.value == true){
+                              child: Obx(() {
+                                if (controller.isLoading.value == true) {
                                   return ElevatedButton(
                                     onPressed: null,
                                     style: ElevatedButton.styleFrom(
-                                      shape:
-                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       backgroundColor: AppColors.primaryColor,
                                     ),
                                     child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.all(10),
@@ -256,32 +260,52 @@ class RegisterView extends GetView<RegisterController> {
                                       ],
                                     ),
                                   );
-                                }else {
+                                } else {
                                   return CustomButton(
                                       text: AppStrings.next,
                                       onPressed: () {
-                                        if(controller.formKey.currentState!.validate()){
-                                          if (controller.checkBoxValue == true && controller.countryName != ""
-                                          && controller.phoneController.text != ""){
+                                        if (controller.formKey.currentState!
+                                            .validate()) {
+                                          if (controller.checkBoxValue ==
+                                                  true &&
+                                              controller.countryName != "" &&
+                                              controller.phoneController.text !=
+                                                  "") {
                                             controller.registerFun();
-                                          }else if (controller.countryName == ""){
+                                          } else if (controller.countryName ==
+                                              "") {
                                             Get.snackbar("كود البلد",
-                                                "من فضلك أختر كود البلد" ,
-                                                snackPosition: SnackPosition.TOP ,
-                                                backgroundColor: Colors.white ,
-                                                icon: const Icon(Icons.error , color: Colors.red,));
-                                          }else if (controller.phoneController.text == ""){
-                                            Get.snackbar("برجاء أدخال رقم الهاتف",
-                                                "برجاء أدخال رقم الهاتف واكمال التسجيل" ,
-                                                snackPosition: SnackPosition.TOP ,
-                                                backgroundColor: Colors.white ,
-                                                icon: const Icon(Icons.error , color: Colors.red,));
-                                          }else {
+                                                "من فضلك أختر كود البلد",
+                                                snackPosition:
+                                                    SnackPosition.TOP,
+                                                backgroundColor: Colors.white,
+                                                icon: const Icon(
+                                                  Icons.error,
+                                                  color: Colors.red,
+                                                ));
+                                          } else if (controller
+                                                  .phoneController.text ==
+                                              "") {
+                                            Get.snackbar(
+                                                "برجاء أدخال رقم الهاتف",
+                                                "برجاء أدخال رقم الهاتف واكمال التسجيل",
+                                                snackPosition:
+                                                    SnackPosition.TOP,
+                                                backgroundColor: Colors.white,
+                                                icon: const Icon(
+                                                  Icons.error,
+                                                  color: Colors.red,
+                                                ));
+                                          } else {
                                             Get.snackbar("برجاء أكمال التسجيل",
-                                                "برجاء الموافقه على الشروط والاحكام" ,
-                                                snackPosition: SnackPosition.TOP ,
-                                                backgroundColor: Colors.white ,
-                                                icon: const Icon(Icons.error , color: Colors.red,));
+                                                "برجاء الموافقه على الشروط والاحكام",
+                                                snackPosition:
+                                                    SnackPosition.TOP,
+                                                backgroundColor: Colors.white,
+                                                icon: const Icon(
+                                                  Icons.error,
+                                                  color: Colors.red,
+                                                ));
                                           }
                                         }
                                       },
@@ -317,10 +341,8 @@ class RegisterView extends GetView<RegisterController> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.to(() => LoginView() ,
-                                    arguments: {
-                                      "type" : ""
-                                    });
+                                    Get.to(() => LoginView(),
+                                        arguments: {"type": ""});
                                   },
                                   child: const Text(
                                     AppStrings.login,

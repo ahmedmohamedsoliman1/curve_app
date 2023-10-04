@@ -1,12 +1,15 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../data/auth/registerResponseModel.dart';
 class Prefs {
 
   static late SharedPreferences prefs ;
 
 
-  static  Future <bool> saveString ({required String key , required String value})async{
+  static Future<bool> saveString(
+      {required String key, required String value}) async {
     return prefs.setString(key, value);
   }
 

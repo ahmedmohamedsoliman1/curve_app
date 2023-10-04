@@ -1,7 +1,6 @@
 import 'package:curve_app/app/core/prefs.dart';
 import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,23 +54,25 @@ class RegisterController extends GetxController {
         governarate: "",
         city: "",
         type: type!);
-     if (response != null){
-       if (response.message == null){
-         isLoading.value = false ;
-         await Prefs.saveUser(key: PrefsKeys.currentUser, model: response);
-         print("saved");
-         Get.off(() => const ChooseCityView() ,
-         arguments: {
-           "country" : countryName
-         });
-       }
-       }else {
-       isLoading.value = false ;
-       Get.snackbar("خطأ فى أنشاء الحساب", "البريد الاليكترونى أو رقم الهاتف مسجل سابقا" ,
-           snackPosition: SnackPosition.TOP ,
-           backgroundColor: Colors.white ,
-           icon: const Icon(Icons.error , color: Colors.red,));
-     }
+     if (response != null) {
+      if (response.message == null) {
+        isLoading.value = false;
+        await Prefs.saveUser(key: PrefsKeys.currentUser, model: response);
+        print("saved");
+        Get.off(() => const ChooseCityView(),
+            arguments: {"country": countryName});
+      }
+    } else {
+      isLoading.value = false;
+      Get.snackbar(
+          "خطأ فى أنشاء الحساب", "البريد الاليكترونى أو رقم الهاتف مسجل سابقا",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ));
+    }
   }
 
   void onChangedPhone (String inputPhone){

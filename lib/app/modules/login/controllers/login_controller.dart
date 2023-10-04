@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:curve_app/app/core/app_strings.dart';
+import 'package:curve_app/app/core/prefs.dart';
+import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/data/auth/registerResponseModel.dart';
+import 'package:curve_app/app/modules/home/views/home_view.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
 import 'package:curve_app/app/services/profile_services.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -13,15 +17,15 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController forgetPasswordPhoneController = TextEditingController();
   AuthService service = AuthService();
+  bool isPressed = false;
 
-  String type = "" ;
-  bool isPressed = false ;
+  RxBool isLoading = false.obs;
+  RegisterResponseModel user = ProfileServices.currentUser;
 
   final interval = const Duration(seconds: 1);
 
   final int timerMaxSeconds = 60;
   int selectedIndex = 0;
-  RegisterResponseModel user = ProfileServices.currentUser ;
 
   int currentSeconds = 0;
 
@@ -40,18 +44,42 @@ class LoginController extends GetxController {
   }
 
   void loginWithEmailAndPassword() async {
+    isLoading.value = true;
     var response = await service.login(
       email: emailController.text,
       password: passwordController.text,
-      type: '',
     );
     if (response != null) {
-      if (response.data != null) {
-        print("okokokok");
-      } else {
-        print("false");
+      if (response.message == null) {
+        isLoading.value = false;
+        await Prefs.saveToken(
+            key: PrefsKeys.token, token: response.token ?? '');
+        Get.to(const HomeView());
+        print('My token == ${response.token} ');
       }
+    } else {
+      isLoading.value = false;
+      Get.snackbar(
+        AppStrings.completeLogin,
+        AppStrings.plsEntreEmail,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.white,
+        icon: const Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+      );
     }
+  }
+
+  void onChangedEmail(String inputEmail) {
+    emailController.text = inputEmail;
+    update();
+  }
+
+  void onChangedPassword(String inputPassword) {
+    passwordController.text = inputPassword;
+    update();
   }
 
   @override
@@ -77,7 +105,7 @@ class LoginController extends GetxController {
   }
 
   void onSelectedTabs(int index) {
-    isPressed = true ;
+    isPressed = true;
     selectedIndex = index;
     print(selectedIndex);
     update();
