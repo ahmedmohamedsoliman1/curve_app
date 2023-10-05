@@ -2,7 +2,6 @@ import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
 import 'package:curve_app/app/core/extension.dart';
 import 'package:curve_app/app/modules/login/controllers/login_controller.dart';
-import 'package:curve_app/app/modules/login/views/password_recovery_code_view.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:curve_app/app/widgets/custom_TextFormField.dart';
@@ -31,7 +30,7 @@ class ForgetPasswordView extends GetView {
                     body: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Form(
-                        //key: controller.formKeyForForgetPasswordView,
+                        key: controllerLogin.formKeyForForgetPasswordView,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
@@ -121,23 +120,56 @@ class ForgetPasswordView extends GetView {
                               const SizedBox(
                                 height: 60,
                               ),
-                              CustomElevatedButton(
-                                onPressed: () {
-                                  /*if (controller
-                            .formKeyForForgetPasswordView.currentState!
-                            .validate()) {
-
-                        }*/
-                                  Get.to(const PasswordRecoveryCodeView());
-                                },
-                                btnText: AppStrings.next,
-                                btnBackgroundColor: AppColors.primaryColor,
-                                btnRadius: 12,
-                                textColor: AppColors.whiteColor,
-                                textFontSize: 14,
-                                textFontWeight: FontWeight.w500,
-                                btnPaddingHorizontal: .2,
-                                btnPaddingVertical: .02,
+                              SizedBox(
+                                height: heightMediaQuery(
+                                    height: 0.07, context: context),
+                                width: widthMediaQuery(
+                                    width: 0.48, context: context),
+                                child: Obx(() {
+                                  if (controllerLogin.isLoading.value == true) {
+                                    return ElevatedButton(
+                                      onPressed: null,
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        backgroundColor: AppColors.primaryColor,
+                                      ),
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return CustomElevatedButton(
+                                      onPressed: () {
+                                        if (controllerLogin
+                                            .formKeyForForgetPasswordView
+                                            .currentState!
+                                            .validate()) {
+                                          controllerLogin.resetPasswordEmail();
+                                        }
+                                      },
+                                      btnText: AppStrings.next,
+                                      btnBackgroundColor:
+                                          AppColors.primaryColor,
+                                      btnRadius: 12,
+                                      textColor: AppColors.whiteColor,
+                                      textFontSize: 14,
+                                      textFontWeight: FontWeight.w500,
+                                      btnPaddingHorizontal: .2,
+                                      btnPaddingVertical: .02,
+                                    );
+                                  }
+                                }),
                               ),
                               const SizedBox(
                                 height: 30,

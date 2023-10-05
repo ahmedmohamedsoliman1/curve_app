@@ -121,23 +121,24 @@ class CreateNewPasswordView extends GetView {
                                 hasSuffix: true,
                                 color: AppColors.whiteColor,
                                 icon: Icons.lock,
-                                hint: AppStrings.password,
+                                hint: AppStrings.confirmPass,
                                 iconColor: AppColors.primaryColor,
-                                onChanged: (input) {
-                                  controllerLogin.onChangedPassword(input);
-                                },
+                                onChanged: (input) {},
                                 validator: (input) {
                                   if (input == null || input.trim().isEmpty) {
-                                    return "من فضلك أدخل كلمه المرور";
-                                  } else if (input.length < 4) {
-                                    return "كلمه المرور على الاقل أربع حروف أو أرقام";
+                                    return "من فضلك أدخل تأكيد كلمه المرور";
+                                  } else if (controllerLogin
+                                          .rePasswordController.text !=
+                                      controllerLogin.passwordController.text) {
+                                    return "كلمه المرور غير متطابقة";
                                   } else {
                                     return null;
                                   }
                                 },
                                 keyboardType: TextInputType.visiblePassword,
                                 obscure: true,
-                                controller: controllerLogin.passwordController,
+                                controller:
+                                    controllerLogin.rePasswordController,
                               ),
                               const SizedBox(
                                 height: 50,

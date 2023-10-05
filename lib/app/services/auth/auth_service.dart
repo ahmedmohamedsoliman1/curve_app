@@ -1,5 +1,6 @@
 import 'package:curve_app/app/core/api_constants.dart';
 import 'package:curve_app/app/core/api_dio.dart';
+import 'package:curve_app/app/data/auth/ResetPasswordEmailResponse.dart';
 import 'package:curve_app/app/data/auth/loginResponseModel.dart';
 
 import '../../data/auth/registerResponseModel.dart';
@@ -57,6 +58,24 @@ class AuthService {
     if (response.data["data"] != null) {
       print(response.data["data"]);
       return LoginResponseModel.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<ResetPasswordEmailModel?> resetPasswordEmail({
+    required String email,
+  }) async {
+    String url = ApiConstants.forgotPassword;
+    var response = await Api.post(
+      url,
+      body: {
+        "email": email,
+      },
+      isFormData: true,
+    );
+    if (response.data["data"] != null) {
+      return ResetPasswordEmailModel.fromJson(response.data);
     } else {
       return null;
     }

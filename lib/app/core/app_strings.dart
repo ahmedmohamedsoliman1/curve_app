@@ -41,6 +41,8 @@ class AppStrings {
   static const String agreeSH = "الموافقه على الشروط والاحكام";
   static const String haveAccount = "لديك حساب بالفعل";
   static const String completeLogin = "اكمال تسجيل الدخول";
+  static const String emailIsNotCorrect = "البريد الالكترنى غير صحيح";
+  static const String checkYourMail = "الرجاء التحقق من بريدك الالكترنى";
   static const String plsEntreEmail =
-      "البريد الالكترنى غير مسجل الرجاء التسجيل ";
+      "البريد الالكترنى غير مسجل الرجاء التسجيل \nاو كلمة المرور غير صحيحة ";
 }
