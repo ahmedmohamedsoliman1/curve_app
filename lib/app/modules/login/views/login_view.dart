@@ -260,8 +260,8 @@ class LoginView extends GetView<LoginController> {
                                                 .loginWithEmailAndPassword();
                                           }
                                         },
-                                        btnPaddingHorizontal: .15,
-                                        btnPaddingVertical: .025,
+                                        btnPaddingHorizontal: 0,
+                                        btnPaddingVertical: 0,
                                         btnText: AppStrings.login,
                                         btnBackgroundColor:
                                             AppColors.primaryColor,

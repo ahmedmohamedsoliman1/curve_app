@@ -39,7 +39,7 @@ class RegisterView extends GetView<RegisterController> {
                           children: [
                             SizedBox(
                               height: heightMediaQuery(
-                                  height: 0.07, context: context),
+                                  height: 0.05, context: context),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -69,7 +69,7 @@ class RegisterView extends GetView<RegisterController> {
                               width:
                                   widthMediaQuery(width: 0.5, context: context),
                               height: heightMediaQuery(
-                                  height: 0.2, context: context),
+                                  height: 0.15, context: context),
                             ),
                             const Text(
                               AppStrings.createNewAccount,
@@ -82,7 +82,7 @@ class RegisterView extends GetView<RegisterController> {
                             ),
                             SizedBox(
                               height: heightMediaQuery(
-                                  height: 0.05, context: context),
+                                  height: 0.02, context: context),
                             ),
                             Directionality(
                               textDirection: TextDirection.rtl,
