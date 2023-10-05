@@ -2,10 +2,12 @@ import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
 import 'package:curve_app/app/core/app_strings.dart';
 import 'package:curve_app/app/core/extension.dart';
+import 'package:curve_app/app/modules/home/views/home_view.dart';
 import 'package:curve_app/app/modules/login/views/forget_password_view.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:curve_app/app/modules/register/views/register_view.dart';
+import 'package:curve_app/app/routes/app_pages.dart';
 import 'package:curve_app/app/widgets/custom_TextFormField.dart';
 import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:curve_app/app/widgets/custom_elevated_button.dart';
@@ -49,7 +51,9 @@ class LoginView extends GetView<LoginController> {
                                     CustomButton(
                                       text: AppStrings.exit,
                                       icon: Icons.arrow_forward_ios_outlined,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Get.offNamed(Routes.HOME);
+                                      },
                                       textColor: AppColors.whiteColor,
                                       fontWeight: FontWeight.bold,
                                       backgroundColor: AppColors.primaryColor,
