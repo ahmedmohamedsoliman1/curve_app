@@ -63,6 +63,8 @@ class LoginController extends GetxController {
     print("${user.data!.id} : id=====================");
     print("${user.data!.name} : name=====================");
     print("${user.data!.email} : email=====================");
+    print("${user.token} : token==================");
+
     super.onInit();
   }
 

@@ -128,25 +128,38 @@ class ChooseCityView extends GetView<ChooseCityController> {
                         child: CustomButton(
                             text: AppStrings.next,
                             onPressed: ()async{
-                              Get.off(()=> const PasswordRecoveryCodeView());
-                              await Prefs.saveUser(key: PrefsKeys.currentUser, model: controller.user.copyWith(
-                                  data: Data(
-                                    governrate: controller.stateValue ,
-                                    city: controller.cityValue,
-                                    country: controller.countryValue ,
-                                    type: controller.user.data!.type ,
-                                    name: controller.user.data!.name ,
-                                    id: controller.user.data!.id ,
-                                    createdAt: controller.user.data!.createdAt,
-                                    email: controller.user.data!.email ,
-                                    phone: controller.user.data!.phone ,
-                                    updatedAt: controller.user.data!.updatedAt,
-                                    platform: controller.user.data!.platform ,
-                                  )
-                              ));
+                              if (controller.countryValue != "" &&
+                              controller.stateValue != "" && controller.cityValue != ""){
+                                Get.off(()=> const PasswordRecoveryCodeView());
+                              }else {
+                                Get.snackbar("من فضلك اكمل التسجيل", "برجاء اختيار البلد / المحافظة / المنطقة أو الحى" ,
+                                    snackPosition: SnackPosition.TOP ,
+                                    backgroundColor: Colors.white ,
+                                    icon: const Icon(Icons.error , color: Colors.red,));
+                              }
+
+                              controller.user = controller.user.copyWith(
+                                data: Data(
+                                  city: controller.cityValue ,
+                                  country: controller.countryValue ,
+                                  governrate: controller.stateValue,
+                                  platform: controller.user.data!.platform ,
+                                  updatedAt: controller.user.data!.updatedAt ,
+                                  phone: controller.user.data!.phone ,
+                                  email: controller.user.data!.email,
+                                  createdAt: controller.user.data!.createdAt,
+                                  id: controller.user.data!.id ,
+                                  name: controller.user.data!.name ,
+                                  type: controller.user.data!.type ,
+                                ),
+                                token: controller.user.token ,
+                                type: controller.user.data!.type ,
+                              );
+                              await Prefs.saveUser(key: PrefsKeys.currentUser, model: controller.user);
                               print(controller.user.data!.country);
                               print(controller.user.data!.city);
                               print(controller.user.data!.governrate);
+                              print("user is : ${controller.user.toJson()}");
                             },
                             textColor: AppColors.whiteColor,
                             fontWeight: FontWeight.normal,
