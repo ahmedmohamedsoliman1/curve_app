@@ -16,7 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.btnPaddingVertical,
   });
 
-  VoidCallback onPressed;
+  void Function()? onPressed;
   String btnText;
   Color btnBackgroundColor;
   Color textColor;

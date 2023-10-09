@@ -4,6 +4,7 @@ import 'package:curve_app/app/core/app_strings.dart';
 import 'package:curve_app/app/core/prefs.dart';
 import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/modules/home/views/home_view.dart';
+import 'package:curve_app/app/modules/login/views/login_view.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,22 +14,25 @@ import '../views/password_recovery_code_view.dart';
 class LoginController extends GetxController {
   var formKeyForLoginView = GlobalKey<FormState>();
   var formKeyForForgetPasswordView = GlobalKey<FormState>();
+  var formKeyRecoveryCodeView = GlobalKey<FormState>();
+  var formKeyCreateNewPassword = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
-  TextEditingController forgetPasswordPhoneController = TextEditingController();
+  TextEditingController firstInputController = TextEditingController();
+  TextEditingController secondInputController = TextEditingController();
+  TextEditingController thirdInputController = TextEditingController();
+  TextEditingController lastInputController = TextEditingController();
   AuthService service = AuthService();
   bool isPressed = false;
-
+  RxBool isBtnActive = false.obs;
   RxBool isLoading = false.obs;
+  int selectedIndex = 0;
 
   // RegisterResponseModel user = ProfileServices.currentUser;
 
   final interval = const Duration(seconds: 1);
-
   final int timerMaxSeconds = 60;
-  int selectedIndex = 0;
-
   int currentSeconds = 0;
 
   String get timerText =>
@@ -56,7 +60,7 @@ class LoginController extends GetxController {
         isLoading.value = false;
         await Prefs.saveToken(
             key: PrefsKeys.token, token: response.token ?? '');
-        Get.to(const HomeView());
+        Get.off(() => const HomeView());
       }
     } else {
       isLoading.value = false;
@@ -78,33 +82,103 @@ class LoginController extends GetxController {
     var response = await service.resetPasswordEmail(
       email: emailController.text,
     );
-    // if (response != null) {
-    if (response?.message != null) {
-      isLoading.value = false;
-      Get.snackbar(
-        AppStrings.forgetPass,
-        AppStrings.checkYourMail,
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.white,
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-        ),
-      );
-      Get.to(const PasswordRecoveryCodeView());
-      // }
-    } else {
-      isLoading.value = false;
-      Get.snackbar(
-        AppStrings.forgetPass,
-        AppStrings.emailIsNotCorrect,
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.white,
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-        ),
-      );
+
+    if (response != null) {
+      if (response.status == false) {
+        isLoading.value = false;
+        Get.snackbar(
+          AppStrings.forgetPass,
+          AppStrings.emailIsNotCorrect,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+      } else if (response.status == true) {
+        isLoading.value = false;
+        Get.snackbar(
+          AppStrings.forgetPass,
+          AppStrings.checkYourMail,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+        Get.to(() => const PasswordRecoveryCodeView());
+        startTimeout();
+      } else if (response.message == "Too Many Attempts.") {
+        isLoading.value = false;
+        Get.snackbar(
+          AppStrings.forgetPass,
+          AppStrings.plsWait,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  void setNewPassword() async {
+    isLoading.value = true;
+    var response = await service.setNewPassword(
+      email: emailController.text,
+      password: passwordController.text,
+      code: int.parse(firstInputController.text +
+          secondInputController.text +
+          thirdInputController.text +
+          lastInputController.text),
+      method: 'PUT',
+    );
+    print(response);
+    if (response != null) {
+      if (response.status == true) {
+        isLoading.value = false;
+        Get.snackbar(
+          AppStrings.createNewPassword,
+          AppStrings.updatedSuccessfully,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+        Get.to(() => LoginView());
+      } else if (response.errors?.password?[0] ==
+          "The password field must be at least 8 characters.") {
+        isLoading.value = false;
+        Get.snackbar(
+          AppStrings.createNewPassword,
+          AppStrings.numOfPassword,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+      } else if (response.message ==
+          "No query results for model [App\\Models\\PasswordReset].") {
+        isLoading.value = false;
+        Get.snackbar(
+          AppStrings.createNewPassword,
+          AppStrings.codeEntered,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -137,6 +211,8 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
+    emailController.text;
+    startTimeout();
     super.onClose();
   }
 

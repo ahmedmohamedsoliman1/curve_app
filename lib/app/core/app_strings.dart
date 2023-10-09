@@ -43,6 +43,12 @@ class AppStrings {
   static const String completeLogin = "اكمال تسجيل الدخول";
   static const String emailIsNotCorrect = "البريد الالكترنى غير صحيح";
   static const String checkYourMail = "الرجاء التحقق من بريدك الالكترنى";
+  static const String plsWait = "الرجاء الانتظار دقيقه واعادة المحاولة";
   static const String plsEntreEmail =
       "البريد الالكترنى غير مسجل الرجاء التسجيل \nاو كلمة المرور غير صحيحة ";
+  static const String updatedSuccessfully = "تم التعديل بنجاح";
+  static const String numOfPassword =
+      "يجب أن يتكون كلمة المرور من 8 أحرف على الأقل";
+  static const String codeEntered =
+      "الكود المدخل خطا يرجى التاكد من الكود فى الصفحة السابقة";
 }

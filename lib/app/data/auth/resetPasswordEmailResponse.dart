@@ -2,6 +2,9 @@
 /// message : "We have e-mailed your password reset link!"
 
 class ResetPasswordEmailModel {
+  bool? status;
+  String? message;
+
   ResetPasswordEmailModel({
     this.status,
     this.message,
@@ -11,9 +14,6 @@ class ResetPasswordEmailModel {
     status = json['status'];
     message = json['message'];
   }
-
-  bool? status;
-  String? message;
 
   ResetPasswordEmailModel copyWith({
     bool? status,

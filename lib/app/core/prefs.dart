@@ -21,7 +21,7 @@ class Prefs {
     String key,
   ) {
     final data = getString(key: key);
-    return jsonDecode(data!) as Map<String, dynamic>;
+    return jsonDecode(data ?? '') as Map<String, dynamic>;
   }
 
   static String? getString({required String key}) {

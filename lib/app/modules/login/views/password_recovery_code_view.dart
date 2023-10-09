@@ -28,6 +28,7 @@ class PasswordRecoveryCodeView extends GetView {
                       body: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),
                         child: Form(
+                          key: controllerLogin.formKeyRecoveryCodeView,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
@@ -94,7 +95,7 @@ class PasswordRecoveryCodeView extends GetView {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  MainAxisAlignment.spaceAround,
                                   children: [
                                     Material(
                                       shadowColor: AppColors.whiteColor,
@@ -105,6 +106,8 @@ class PasswordRecoveryCodeView extends GetView {
                                         width: 55,
                                         child: TextFormField(
                                           onSaved: (newValue) {},
+                                          controller: controllerLogin
+                                              .firstInputController,
                                           onChanged: (value) {
                                             if (value.length == 1) {
                                               FocusScope.of(context)
@@ -119,13 +122,13 @@ class PasswordRecoveryCodeView extends GetView {
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             fillColor: AppColors.whiteColor,
                                             filled: true,
@@ -144,6 +147,8 @@ class PasswordRecoveryCodeView extends GetView {
                                         width: 55,
                                         child: TextFormField(
                                           onSaved: (newValue) {},
+                                          controller: controllerLogin
+                                              .secondInputController,
                                           onChanged: (value) {
                                             if (value.length == 1) {
                                               FocusScope.of(context)
@@ -158,13 +163,13 @@ class PasswordRecoveryCodeView extends GetView {
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             fillColor: AppColors.whiteColor,
                                             filled: true,
@@ -183,6 +188,8 @@ class PasswordRecoveryCodeView extends GetView {
                                         width: 55,
                                         child: TextFormField(
                                           onSaved: (newValue) {},
+                                          controller: controllerLogin
+                                              .thirdInputController,
                                           onChanged: (value) {
                                             if (value.length == 1) {
                                               FocusScope.of(context)
@@ -197,13 +204,13 @@ class PasswordRecoveryCodeView extends GetView {
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             fillColor: AppColors.whiteColor,
                                             filled: true,
@@ -222,10 +229,17 @@ class PasswordRecoveryCodeView extends GetView {
                                         width: 55,
                                         child: TextFormField(
                                           onSaved: (newValue) {},
+                                          controller: controllerLogin
+                                              .lastInputController,
                                           onChanged: (value) {
                                             if (value.length == 1) {
                                               FocusScope.of(context)
                                                   .nextFocus();
+                                              controllerLogin
+                                                      .isBtnActive.value =
+                                                  value.length == 1
+                                                      ? true
+                                                      : false;
                                             }
                                           },
                                           keyboardType: TextInputType.number,
@@ -236,13 +250,13 @@ class PasswordRecoveryCodeView extends GetView {
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: const BorderSide(
                                                   color: AppColors.whiteColor),
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             fillColor: AppColors.whiteColor,
                                             filled: true,
@@ -257,19 +271,26 @@ class PasswordRecoveryCodeView extends GetView {
                                 const SizedBox(
                                   height: 60,
                                 ),
-                                CustomElevatedButton(
-                                  onPressed: () {
-                                    Get.to(const CreateNewPasswordView());
-                                  },
-                                  btnText: AppStrings.next,
-                                  btnBackgroundColor: AppColors.primaryColor,
-                                  btnRadius: 12,
-                                  textColor: AppColors.whiteColor,
-                                  textFontSize: 14,
-                                  textFontWeight: FontWeight.w500,
-                                  btnPaddingHorizontal: .2,
-                                  btnPaddingVertical: .02,
-                                ),
+                                Obx(() {
+                                  return CustomElevatedButton(
+                                    onPressed:
+                                        controllerLogin.isBtnActive.value ==
+                                                true
+                                            ? () {
+                                                Get.to(
+                                                    const CreateNewPasswordView());
+                                              }
+                                            : null,
+                                    btnText: AppStrings.next,
+                                    btnBackgroundColor: AppColors.primaryColor,
+                                    btnRadius: 12,
+                                    textColor: AppColors.whiteColor,
+                                    textFontSize: 14,
+                                    textFontWeight: FontWeight.w500,
+                                    btnPaddingHorizontal: .2,
+                                    btnPaddingVertical: .02,
+                                  );
+                                }),
                                 SizedBox(
                                   height: heightMediaQuery(
                                       height: .2, context: context),
@@ -287,33 +308,44 @@ class PasswordRecoveryCodeView extends GetView {
                                 const SizedBox(
                                   height: 11,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  textDirection: TextDirection.rtl,
-                                  children: [
-                                    const Icon(
-                                      Icons.history,
-                                      color: AppColors.primaryColor,
-                                      size: 24,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: const Text(
+                                GestureDetector(
+                                  onTap: controllerLogin.currentSeconds == 60
+                                      ? () {
+                                          controllerLogin.resetPasswordEmail();
+                                        }
+                                      : null,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    textDirection: TextDirection.rtl,
+                                    children: [
+                                      Icon(
+                                        Icons.history,
+                                        color:
+                                            controllerLogin.currentSeconds == 60
+                                                ? AppColors.primaryColor
+                                                : AppColors.grayColor,
+                                        size: 24,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
                                         AppStrings.resent,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: AppColors.blackColor,
+                                          color:
+                                              controllerLogin.currentSeconds ==
+                                                      60
+                                                  ? AppColors.primaryColor
+                                                  : AppColors.grayColor,
                                           fontSize: 16,
                                           fontFamily:
                                               AppStrings.fontFamilyMedium,
-                                          fontWeight: FontWeight.w500,
+                                          //fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

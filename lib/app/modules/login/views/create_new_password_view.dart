@@ -22,12 +22,13 @@ class CreateNewPasswordView extends GetView {
           init: NetworkController(),
           builder: (controller) {
             return controller.connectivityStatus == 4 ||
-                    controller.connectivityStatus == 1
+                controller.connectivityStatus == 1
                 ? Scaffold(
                     backgroundColor: AppColors.whiteColor,
                     body: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Form(
+                        key: controllerLogin.formKeyCreateNewPassword,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
@@ -104,8 +105,6 @@ class CreateNewPasswordView extends GetView {
                                 validator: (input) {
                                   if (input == null || input.trim().isEmpty) {
                                     return "من فضلك أدخل كلمه المرور";
-                                  } else if (input.length < 4) {
-                                    return "كلمه المرور على الاقل أربع حروف أو أرقام";
                                   } else {
                                     return null;
                                   }
@@ -143,16 +142,56 @@ class CreateNewPasswordView extends GetView {
                               const SizedBox(
                                 height: 50,
                               ),
-                              CustomElevatedButton(
-                                onPressed: () {},
-                                btnText: AppStrings.confirm,
-                                btnBackgroundColor: AppColors.primaryColor,
-                                btnRadius: 12,
-                                textColor: AppColors.whiteColor,
-                                textFontSize: 14,
-                                textFontWeight: FontWeight.w500,
-                                btnPaddingHorizontal: .2,
-                                btnPaddingVertical: .02,
+                              SizedBox(
+                                height: heightMediaQuery(
+                                    height: 0.07, context: context),
+                                width: widthMediaQuery(
+                                    width: 0.48, context: context),
+                                child: Obx(() {
+                                  if (controllerLogin.isLoading.value == true) {
+                                    return ElevatedButton(
+                                      onPressed: null,
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        backgroundColor: AppColors.primaryColor,
+                                      ),
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return CustomElevatedButton(
+                                      onPressed: () {
+                                        if (controllerLogin
+                                            .formKeyCreateNewPassword
+                                            .currentState!
+                                            .validate()) {
+                                          controllerLogin.setNewPassword();
+                                        }
+                                      },
+                                      btnText: AppStrings.confirm,
+                                      btnBackgroundColor:
+                                          AppColors.primaryColor,
+                                      btnRadius: 12,
+                                      textColor: AppColors.whiteColor,
+                                      textFontSize: 14,
+                                      textFontWeight: FontWeight.w500,
+                                      btnPaddingHorizontal: .2,
+                                      btnPaddingVertical: .02,
+                                    );
+                                  }
+                                }),
                               ),
                             ],
                           ),
