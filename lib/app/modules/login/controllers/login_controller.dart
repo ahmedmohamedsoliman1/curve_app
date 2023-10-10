@@ -4,6 +4,7 @@ import 'package:curve_app/app/core/app_strings.dart';
 import 'package:curve_app/app/core/prefs.dart';
 import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/modules/home/views/home_view.dart';
+import 'package:curve_app/app/modules/login/views/create_new_password_view.dart';
 import 'package:curve_app/app/modules/login/views/login_view.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,11 @@ class LoginController extends GetxController {
     Timer.periodic(duration, (timer) {
       print(timer.tick);
       currentSeconds = timer.tick;
-      if (timer.tick >= timerMaxSeconds) timer.cancel();
+      if (timer.tick >= timerMaxSeconds) {
+        Get.to(() => const CreateNewPasswordView());
+        timer.cancel();
+      }
+
       update();
     });
   }
@@ -125,6 +130,43 @@ class LoginController extends GetxController {
       }
     }
   }
+
+  /*void checkCorrectCode() async {
+    var response = await service.resetPasswordEmail(
+      email: emailController.text,
+    );
+    final responseCode = response?.code ;
+    var inputCode = int.parse(firstInputController.text +
+        secondInputController.text +
+        thirdInputController.text +
+        lastInputController.text);
+    if (response != null) {
+      if (responseCode ==inputCode) {
+        Get.snackbar(
+          AppStrings.forgetPass,
+          AppStrings.codeEnteredSuccessfully,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+        Get.to(const CreateNewPasswordView());
+      } else {
+        Get.snackbar(
+          AppStrings.forgetPass,
+          AppStrings.codeEntered,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.white,
+          icon: const Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+        );
+      }
+    }
+  }*/
 
   void setNewPassword() async {
     isLoading.value = true;

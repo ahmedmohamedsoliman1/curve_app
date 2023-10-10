@@ -49,6 +49,6 @@ class AppStrings {
   static const String updatedSuccessfully = "تم التعديل بنجاح";
   static const String numOfPassword =
       "يجب أن يتكون كلمة المرور من 8 أحرف على الأقل";
-  static const String codeEntered =
-      "الكود المدخل خطا يرجى التاكد من الكود فى الصفحة السابقة";
+  static const String codeEntered = "الكود المدخل خطا يرجى التاكد من الكود ";
+  static const String codeEnteredSuccessfully = "تم ادخال الكود المرسل بنجاح";
 }

@@ -3,7 +3,6 @@ import 'package:curve_app/app/data/auth/registerResponseModel.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../core/app_colors.dart';
@@ -129,27 +128,33 @@ class ChooseCityView extends GetView<ChooseCityController> {
                             text: AppStrings.next,
                             onPressed: ()async{
                               if (controller.countryValue != "" &&
-                              controller.stateValue != "" && controller.cityValue != ""){
-                                Get.off(()=> const PasswordRecoveryCodeView());
-                              }else {
-                                Get.snackbar("من فضلك اكمل التسجيل", "برجاء اختيار البلد / المحافظة / المنطقة أو الحى" ,
-                                    snackPosition: SnackPosition.TOP ,
-                                    backgroundColor: Colors.white ,
-                                    icon: const Icon(Icons.error , color: Colors.red,));
-                              }
+                                    controller.stateValue != "" &&
+                                    controller.cityValue != "") {
+                                  Get.off(
+                                      () => const PasswordRecoveryCodeView());
+                                } else {
+                                  Get.snackbar("من فضلك اكمل التسجيل",
+                                      "برجاء اختيار البلد / المحافظة / المنطقة أو الحى",
+                                      snackPosition: SnackPosition.TOP,
+                                      backgroundColor: Colors.white,
+                                      icon: const Icon(
+                                        Icons.error,
+                                        color: Colors.red,
+                                      ));
+                                }
 
-                              controller.user = controller.user.copyWith(
-                                data: Data(
-                                  city: controller.cityValue ,
-                                  country: controller.countryValue ,
-                                  governrate: controller.stateValue,
-                                  platform: controller.user.data!.platform ,
-                                  updatedAt: controller.user.data!.updatedAt ,
-                                  phone: controller.user.data!.phone ,
-                                  email: controller.user.data!.email,
-                                  createdAt: controller.user.data!.createdAt,
-                                  id: controller.user.data!.id ,
-                                  name: controller.user.data!.name ,
+                                controller.user = controller.user.copyWith(
+                                  data: Data(
+                                    city: controller.cityValue,
+                                    country: controller.countryValue,
+                                    governrate: controller.stateValue,
+                                    platform: controller.user.data!.platform,
+                                    updatedAt: controller.user.data!.updatedAt,
+                                    phone: controller.user.data!.phone,
+                                    email: controller.user.data!.email,
+                                    createdAt: controller.user.data!.createdAt,
+                                    id: controller.user.data!.id,
+                                    name: controller.user.data!.name ,
                                   type: controller.user.data!.type ,
                                 ),
                                 token: controller.user.token ,
