@@ -5,12 +5,11 @@ import 'package:curve_app/app/modules/login/controllers/login_controller.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:curve_app/app/widgets/custom_TextFormField.dart';
-import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:curve_app/app/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CreateNewPasswordView extends GetView {
+class CreateNewPasswordView extends GetView<LoginController> {
   const CreateNewPasswordView({Key? key}) : super(key: key);
 
   @override
@@ -37,7 +36,7 @@ class CreateNewPasswordView extends GetView {
                                 height: heightMediaQuery(
                                     height: 0.08, context: context),
                               ),
-                              Row(
+                              /*Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   CustomButton(
@@ -56,7 +55,7 @@ class CreateNewPasswordView extends GetView {
                                     padding: 1,
                                   ),
                                 ],
-                              ),
+                              ),*/
                               Image.asset(
                                 'assets/images/logo.png',
                                 width: widthMediaQuery(

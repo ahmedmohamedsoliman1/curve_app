@@ -2,7 +2,6 @@ import 'package:curve_app/app/core/app_colors.dart';
 import 'package:curve_app/app/core/app_media_query.dart';
 import 'package:curve_app/app/core/app_strings.dart';
 import 'package:curve_app/app/modules/login/controllers/login_controller.dart';
-import 'package:curve_app/app/modules/login/views/create_new_password_view.dart';
 import 'package:curve_app/app/modules/network/controllers/network_controller.dart';
 import 'package:curve_app/app/modules/network/views/no_connection_widget.dart';
 import 'package:curve_app/app/widgets/custom_button.dart';
@@ -10,8 +9,10 @@ import 'package:curve_app/app/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PasswordRecoveryCodeView extends GetView {
-  const PasswordRecoveryCodeView({Key? key}) : super(key: key);
+class PasswordRecoveryCodeView extends GetView<LoginController> {
+  PasswordRecoveryCodeView({Key? key}) : super(key: key);
+
+  LoginController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -277,8 +278,12 @@ class PasswordRecoveryCodeView extends GetView {
                                         controllerLogin.isBtnActive.value ==
                                                 true
                                             ? () {
-                                                Get.to(
-                                                    const CreateNewPasswordView());
+                                                controllerLogin.checkCode();
+                                                /*// Get.to(const CreateNewPasswordView());
+                                          print(int.parse(controllerLogin.firstInputController.text +
+                                              controllerLogin.secondInputController.text +
+                                              controllerLogin.thirdInputController.text +
+                                              controllerLogin.lastInputController.text));*/
                                               }
                                             : null,
                                     btnText: AppStrings.next,

@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 import '../../../core/app_strings.dart';
 
-class ForgetPasswordView extends GetView {
+class ForgetPasswordView extends GetView<LoginController> {
   ForgetPasswordView({Key? key}) : super(key: key);
 
   @override

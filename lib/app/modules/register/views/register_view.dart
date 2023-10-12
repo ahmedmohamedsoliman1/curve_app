@@ -174,7 +174,7 @@ class RegisterView extends GetView<RegisterController> {
                                   if (input == null || input.trim().isEmpty) {
                                     return "من فضلك أدخل كلمه المرور";
                                   } else if (input.length < 8) {
-                                    return "كلمه المرور على الاقل أربع حروف أو أرقام";
+                                    return "كلمه المرور على الاقل 8 حروف أو أرقام";
                                   } else {
                                     return null;
                                   }

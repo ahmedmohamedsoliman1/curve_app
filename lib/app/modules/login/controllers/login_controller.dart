@@ -29,6 +29,8 @@ class LoginController extends GetxController {
   RxBool isBtnActive = false.obs;
   RxBool isLoading = false.obs;
   int selectedIndex = 0;
+  var responseCode = 0;
+  var printEmail = '';
 
   // RegisterResponseModel user = ProfileServices.currentUser;
 
@@ -45,10 +47,7 @@ class LoginController extends GetxController {
     Timer.periodic(duration, (timer) {
       print(timer.tick);
       currentSeconds = timer.tick;
-      if (timer.tick >= timerMaxSeconds) {
-        Get.to(() => const CreateNewPasswordView());
-        timer.cancel();
-      }
+      if (timer.tick >= timerMaxSeconds) timer.cancel();
 
       update();
     });
@@ -102,6 +101,8 @@ class LoginController extends GetxController {
           ),
         );
       } else if (response.status == true) {
+        responseCode = response.code!;
+        print(responseCode);
         isLoading.value = false;
         Get.snackbar(
           AppStrings.forgetPass,
@@ -113,7 +114,7 @@ class LoginController extends GetxController {
             color: Colors.red,
           ),
         );
-        Get.to(() => const PasswordRecoveryCodeView());
+        Get.to(() => PasswordRecoveryCodeView());
         startTimeout();
       } else if (response.message == "Too Many Attempts.") {
         isLoading.value = false;
@@ -131,42 +132,27 @@ class LoginController extends GetxController {
     }
   }
 
-  /*void checkCorrectCode() async {
-    var response = await service.resetPasswordEmail(
-      email: emailController.text,
-    );
-    final responseCode = response?.code ;
+  void checkCode() {
     var inputCode = int.parse(firstInputController.text +
         secondInputController.text +
         thirdInputController.text +
         lastInputController.text);
-    if (response != null) {
-      if (responseCode ==inputCode) {
-        Get.snackbar(
-          AppStrings.forgetPass,
-          AppStrings.codeEnteredSuccessfully,
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.white,
-          icon: const Icon(
-            Icons.error,
-            color: Colors.red,
-          ),
-        );
-        Get.to(const CreateNewPasswordView());
-      } else {
-        Get.snackbar(
-          AppStrings.forgetPass,
-          AppStrings.codeEntered,
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.white,
-          icon: const Icon(
-            Icons.error,
-            color: Colors.red,
-          ),
-        );
-      }
+    if (responseCode == inputCode) {
+      Get.off(() => const CreateNewPasswordView());
+    } else {
+      Get.snackbar(
+        AppStrings.forgetPass,
+        AppStrings.codeEntered,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.white,
+        icon: const Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+      );
     }
-  }*/
+    update();
+  }
 
   void setNewPassword() async {
     isLoading.value = true;
@@ -236,6 +222,10 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    printEmail = Get.arguments['email'];
+    print('///////////////////////////////////////');
+    print(printEmail);
+    print('///////////////////////////////////////');
     /*  print("${user.data!.city} : city===========");
     print("${user.data!.governrate} : governarate================");
     print("${user.data!.country} : country================");

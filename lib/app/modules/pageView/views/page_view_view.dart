@@ -171,7 +171,7 @@ class PageViewView extends GetView<PageViewController> {
                                     if (pageViewController.pageIndex.value ==
                                         2) {
                                       Get.off(() => LoginView(),
-                                          arguments: {"type": ""});
+                                          arguments: {"type": "", 'email': ''});
                                     }
                                   },
                                   child: CircularPercentIndicator(

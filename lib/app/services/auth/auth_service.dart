@@ -1,6 +1,5 @@
 import 'package:curve_app/app/core/api_constants.dart';
 import 'package:curve_app/app/core/api_dio.dart';
-import 'package:curve_app/app/data/auth/introScreensModel.dart';
 import 'package:curve_app/app/data/auth/loginResponseModel.dart';
 import 'package:curve_app/app/data/auth/resetPasswordEmailResponse.dart';
 import 'package:curve_app/app/data/auth/setNewPasswordModel.dart';
@@ -8,16 +7,6 @@ import 'package:curve_app/app/data/auth/setNewPasswordModel.dart';
 import '../../data/auth/registerResponseModel.dart';
 
 class AuthService {
-  Future<IntroScreensModel?> introScreen() async {
-    String url = ApiConstants.welcomeScreens;
-    var response = await Api.get(url);
-    if (response.data != null) {
-      return IntroScreensModel.fromJson(response.data);
-    } else {
-      return null;
-    }
-  }
-
   Future<RegisterResponseModel?> register({
     required String name,
     required String email,

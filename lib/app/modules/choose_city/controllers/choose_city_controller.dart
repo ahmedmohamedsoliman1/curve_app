@@ -1,6 +1,4 @@
 import 'package:csc_picker/csc_picker.dart';
-import 'package:curve_app/app/core/prefs.dart';
-import 'package:curve_app/app/core/prefs_keys.dart';
 import 'package:curve_app/app/data/auth/registerResponseModel.dart';
 import 'package:curve_app/app/services/profile_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,13 +10,17 @@ class ChooseCityController extends GetxController {
   String stateValue = "";
   String cityValue = "";
   String address = "";
-  String country = "" ;
+  String country = "";
+
   GlobalKey<CSCPickerState> cscPickerKey = GlobalKey();
   RegisterResponseModel user = ProfileServices.currentUser;
+  var getEmail = '';
 
   @override
   void onInit() {
     country = Get.arguments["country"];
+    getEmail = Get.arguments["email"];
+    print(getEmail);
     super.onInit();
   }
 

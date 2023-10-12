@@ -127,11 +127,13 @@ class ChooseCityView extends GetView<ChooseCityController> {
                         child: CustomButton(
                             text: AppStrings.next,
                             onPressed: ()async{
-                              if (controller.countryValue != "" &&
+                                if (controller.countryValue != "" &&
                                     controller.stateValue != "" &&
                                     controller.cityValue != "") {
-                                  Get.off(
-                                      () => const PasswordRecoveryCodeView());
+                                Get.off(() => PasswordRecoveryCodeView(),
+                                      arguments: {
+                                        'email': controller.getEmail
+                                      });
                                 } else {
                                   Get.snackbar("من فضلك اكمل التسجيل",
                                       "برجاء اختيار البلد / المحافظة / المنطقة أو الحى",
