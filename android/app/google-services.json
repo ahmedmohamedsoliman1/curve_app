@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552054346141",
+    "project_id": "curve-app-36e44",
+    "storage_bucket": "curve-app-36e44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552054346141:android:c91ebb0309e56e07e2df74",
+        "android_client_info": {
+          "package_name": "com.curveApp.curve_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACzg9YRvHApIJSPmXzNAFcHnJ6RwPmNMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

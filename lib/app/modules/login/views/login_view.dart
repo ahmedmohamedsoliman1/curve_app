@@ -12,6 +12,7 @@ import 'package:curve_app/app/widgets/custom_button.dart';
 import 'package:curve_app/app/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -348,7 +349,12 @@ class LoginView extends GetView<LoginController> {
                                       width: 30,
                                       height: 30,
                                       child: GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          controllerLogin.signInWithGoogle();
+
+                                          // GoogleSignIn goolesignin = GoogleSignIn();
+                                          // goolesignin.disconnect();
+                                        },
                                         child: Image.asset(
                                             'assets/images/google.png'),
                                       ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/auth/registerResponseModel.dart';
@@ -30,6 +31,10 @@ class Prefs {
   static Future<bool> saveUser(
       {required String key, required RegisterResponseModel model}) async {
     return setMap(key: key, object: model.toJson());
+  }
+  static Future<bool> saveGoogleUser(
+      {required String key, required Map<String ,dynamic> model}) async {
+    return setMap(key: key, object: model);
   }
 
   static Future<bool> saveToken(

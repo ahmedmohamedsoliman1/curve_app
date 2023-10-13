@@ -7,10 +7,13 @@ import 'package:curve_app/app/modules/home/views/home_view.dart';
 import 'package:curve_app/app/modules/login/views/create_new_password_view.dart';
 import 'package:curve_app/app/modules/login/views/login_view.dart';
 import 'package:curve_app/app/services/auth/auth_service.dart';
+import 'package:curve_app/app/services/profile_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../views/password_recovery_code_view.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
   var formKeyForLoginView = GlobalKey<FormState>();
@@ -30,7 +33,7 @@ class LoginController extends GetxController {
   RxBool isLoading = false.obs;
   int selectedIndex = 0;
   var responseCode = 0;
-
+  FirebaseAuth auth =  FirebaseAuth.instance ;
   // RegisterResponseModel user = ProfileServices.currentUser;
 
   final interval = const Duration(seconds: 1);
@@ -253,4 +256,37 @@ class LoginController extends GetxController {
     print(selectedIndex);
     update();
   }
+
+    Future signInWithGoogle() async {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+          if (googleUser == null){
+            return ;
+          }
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      FirebaseAuth auth = FirebaseAuth.instance;
+      print(auth.currentUser!.uid);
+      await Prefs.saveGoogleUser(key: PrefsKeys.googleCurrentUser,
+          model: {
+            "userName" : auth.currentUser!.displayName ,
+            "userId" : auth.currentUser!.uid ,
+            "userEmail" : auth.currentUser!.email ,
+            "userEmailVerified" : auth.currentUser!.emailVerified ,
+            "userPhone" : auth.currentUser!.phoneNumber ,
+            "userToken" : auth.currentUser!.refreshToken
+          });
+      print("saved");
+      Get.offAll(()=>const HomeView());
+      // await Prefs.saveGoogleUser(key: PrefsKeys.googleCurrentUser, model: user!);
+      // print("saved");
+    }
+
+
 }
