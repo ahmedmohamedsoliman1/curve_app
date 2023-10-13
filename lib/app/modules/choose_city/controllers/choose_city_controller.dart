@@ -15,11 +15,14 @@ class ChooseCityController extends GetxController {
   GlobalKey<CSCPickerState> cscPickerKey = GlobalKey();
   RegisterResponseModel user = ProfileServices.currentUser;
   var getEmail = '';
+  var token = "" ;
 
   @override
   void onInit() {
     country = Get.arguments["country"];
     getEmail = Get.arguments["email"];
+    token = Get.arguments["token"];
+
     print(getEmail);
     super.onInit();
   }

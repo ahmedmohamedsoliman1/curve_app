@@ -11,6 +11,8 @@ abstract class Routes {
   static const NETWORK = _Paths.NETWORK;
   static const REGISTER = _Paths.REGISTER;
   static const CHOOSE_CITY = _Paths.CHOOSE_CITY;
+  static const LOGIN_RECOVERY_CODE_REGISTER =
+      _Paths.LOGIN + _Paths.RECOVERY_CODE_REGISTER;
 }
 
 abstract class _Paths {
@@ -23,4 +25,5 @@ abstract class _Paths {
   static const NETWORK = '/network';
   static const REGISTER = '/register';
   static const CHOOSE_CITY = '/choose-city';
+  static const RECOVERY_CODE_REGISTER = '/recovery-code-register';
 }

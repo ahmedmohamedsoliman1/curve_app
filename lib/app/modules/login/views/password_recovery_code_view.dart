@@ -12,8 +12,6 @@ import 'package:get/get.dart';
 class PasswordRecoveryCodeView extends GetView<LoginController> {
   PasswordRecoveryCodeView({Key? key}) : super(key: key);
 
-  LoginController controller = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(

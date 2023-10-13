@@ -30,7 +30,6 @@ class LoginController extends GetxController {
   RxBool isLoading = false.obs;
   int selectedIndex = 0;
   var responseCode = 0;
-  var printEmail = '';
 
   // RegisterResponseModel user = ProfileServices.currentUser;
 
@@ -132,6 +131,7 @@ class LoginController extends GetxController {
     }
   }
 
+
   void checkCode() {
     var inputCode = int.parse(firstInputController.text +
         secondInputController.text +
@@ -222,9 +222,8 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
-    printEmail = Get.arguments['email'];
     print('///////////////////////////////////////');
-    print(printEmail);
+
     print('///////////////////////////////////////');
     /*  print("${user.data!.city} : city===========");
     print("${user.data!.governrate} : governarate================");

@@ -11,6 +11,7 @@ import '../../../core/app_strings.dart';
 import '../../../core/prefs.dart';
 import '../../../core/prefs_keys.dart';
 import '../../../widgets/custom_button.dart';
+import '../../login/recovery_code_register/views/login_recovery_code_register_view.dart';
 import '../../login/views/password_recovery_code_view.dart';
 import '../controllers/choose_city_controller.dart';
 
@@ -130,9 +131,10 @@ class ChooseCityView extends GetView<ChooseCityController> {
                                 if (controller.countryValue != "" &&
                                     controller.stateValue != "" &&
                                     controller.cityValue != "") {
-                                Get.off(() => PasswordRecoveryCodeView(),
+                                Get.off(() => const LoginRecoveryCodeRegisterView(),
                                       arguments: {
-                                        'email': controller.getEmail
+                                        'email': controller.getEmail ,
+                                        "token" : controller.token
                                       });
                                 } else {
                                   Get.snackbar("من فضلك اكمل التسجيل",
@@ -144,7 +146,6 @@ class ChooseCityView extends GetView<ChooseCityController> {
                                         color: Colors.red,
                                       ));
                                 }
-
                                 controller.user = controller.user.copyWith(
                                   data: Data(
                                     city: controller.cityValue,
@@ -159,7 +160,7 @@ class ChooseCityView extends GetView<ChooseCityController> {
                                     name: controller.user.data!.name ,
                                   type: controller.user.data!.type ,
                                 ),
-                                token: controller.user.token ,
+                                token: "" ,
                                 type: controller.user.data!.type ,
                               );
                               await Prefs.saveUser(key: PrefsKeys.currentUser, model: controller.user);

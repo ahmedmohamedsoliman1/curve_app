@@ -60,7 +60,8 @@ class RegisterController extends GetxController {
         await Prefs.saveUser(key: PrefsKeys.currentUser, model: response);
         print("saved");
         Get.off(() => const ChooseCityView(),
-            arguments: {"country": countryName, 'email': emailController.text});
+            arguments: {"country": countryName, 'email': emailController.text ,
+            "token" : response.token});
       }
     } else {
       isLoading.value = false;
